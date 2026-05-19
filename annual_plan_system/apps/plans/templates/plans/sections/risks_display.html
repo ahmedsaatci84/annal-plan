@@ -1,0 +1,45 @@
+{% load rtl_extras %}
+{% if risks %}
+<div class="table-responsive">
+    <table class="table table-sm table-bordered">
+        <thead class="table-secondary">
+            <tr>
+                <th>#</th><th>الخطر المحتمل</th><th>الاحتمالية</th>
+                <th>التأثير</th><th>خطة المعالجة</th>
+                {% if can_edit %}<th>إجراءات</th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for risk in risks %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ risk.risk_description }}</td>
+                <td>
+                    {% if risk.probability == 'HIGH' %}
+                    <span class="badge bg-danger">{{ risk.probability|probability_label }}</span>
+                    {% elif risk.probability == 'MEDIUM' %}
+                    <span class="badge bg-warning text-dark">{{ risk.probability|probability_label }}</span>
+                    {% else %}
+                    <span class="badge bg-success">{{ risk.probability|probability_label }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ risk.impact_description }}</td>
+                <td>{{ risk.treatment_plan }}</td>
+                {% if can_edit %}
+                <td>
+                    <a href="{% url 'plans:risk_edit' plan.pk risk.pk %}" class="btn btn-sm btn-outline-primary">تعديل</a>
+                    <form method="post" action="{% url 'plans:risk_delete' plan.pk risk.pk %}" class="d-inline"
+                          onsubmit="return confirm('حذف المخاطرة؟')">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-outline-danger">حذف</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">لم تُضف أي مخاطر بعد.</div>
+{% endif %}

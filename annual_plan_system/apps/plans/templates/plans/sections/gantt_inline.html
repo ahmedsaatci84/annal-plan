@@ -1,0 +1,45 @@
+{% load rtl_extras %}
+<div class="table-responsive">
+<table class="table table-sm table-bordered gantt-table small">
+    <thead>
+        <tr class="table-dark text-center">
+            <th rowspan="2" style="min-width:100px">الهدف</th>
+            <th rowspan="2" style="min-width:160px">النشاط</th>
+            <th colspan="3" class="text-center">الربع الأول</th>
+            <th colspan="3" class="text-center">الربع الثاني</th>
+            <th colspan="3" class="text-center">الربع الثالث</th>
+            <th colspan="3" class="text-center">الربع الرابع</th>
+        </tr>
+        <tr class="table-secondary text-center">
+            <th>ك2</th><th>شباط</th><th>آذار</th>
+            <th>نيسان</th><th>أيار</th><th>حزيران</th>
+            <th>تموز</th><th>آب</th><th>أيلول</th>
+            <th>ت1</th><th>ت2</th><th>ك1</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for goal in goals %}
+        {% for act in goal.activities.all %}
+        <tr>
+            {% if forloop.first %}
+            <td rowspan="{{ goal.activities.count }}" class="fw-semibold text-center align-middle">
+                {{ goal.code }}
+            </td>
+            {% endif %}
+            <td>{{ act.title|truncatechars:35 }}</td>
+            {% for covered in act.gantt_months %}
+            <td class="text-center p-0">
+                {% if covered %}
+                <div style="background-color:{{ act.activity_status|activity_status_color }};height:24px;border-radius:3px;" title="{{ act.activity_status|activity_status_label }}"></div>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% empty %}
+        {% endfor %}
+        {% empty %}
+        <tr><td colspan="14" class="text-center text-muted">لا يوجد أهداف وأنشطة</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>

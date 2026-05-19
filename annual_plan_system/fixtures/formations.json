@@ -1,0 +1,42 @@
+[
+  {"model": "formations.formation", "pk": 1, "fields": {
+    "code": "MAIN", "name_ar": "المديرية العامة", "parent": null,
+    "level": "COMPANY", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 2, "fields": {
+    "code": "BD01", "name_ar": "مجلس الإدارة", "parent": 1,
+    "level": "BOARD", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 3, "fields": {
+    "code": "DIV01", "name_ar": "دائرة التخطيط والمتابعة", "parent": 1,
+    "level": "DIVISION", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 4, "fields": {
+    "code": "DIV02", "name_ar": "دائرة الموارد البشرية", "parent": 1,
+    "level": "DIVISION", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 5, "fields": {
+    "code": "SEC01", "name_ar": "شعبة التخطيط الاستراتيجي", "parent": 3,
+    "level": "SECTION", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 6, "fields": {
+    "code": "SEC02", "name_ar": "شعبة المتابعة والتقييم", "parent": 3,
+    "level": "SECTION", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 7, "fields": {
+    "code": "SEC03", "name_ar": "شعبة التدريب والتطوير", "parent": 4,
+    "level": "SECTION", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }},
+  {"model": "formations.formation", "pk": 8, "fields": {
+    "code": "UNIT01", "name_ar": "وحدة الخطط السنوية", "parent": 5,
+    "level": "UNIT", "is_active": true,
+    "created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z"
+  }}
+]

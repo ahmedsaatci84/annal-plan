@@ -1,0 +1,146 @@
+/* =============================================
+   Annual Plan Management System - RTL Custom CSS
+   ============================================= */
+
+/* Sidebar */
+.sidebar {
+    min-height: 100vh;
+    background-color: #1e2a3a;
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.sidebar .nav-link {
+    color: #bdc8d6;
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin-bottom: 2px;
+    transition: background-color 0.2s;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background-color: #2e4057;
+    color: #ffffff;
+}
+
+.sidebar .nav-link i {
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7f8fa6;
+    padding: 8px 14px 4px;
+}
+
+/* Main layout */
+.main-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    padding: 24px;
+    background-color: #f0f2f5;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.top-navbar {
+    background-color: #2e4057;
+    color: white;
+    padding: 0 20px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-navbar .brand {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* Status badges overrides */
+.badge-draft     { background-color: #6c757d; }
+.badge-submitted { background-color: #ffc107; color: #000; }
+.badge-review    { background-color: #0dcaf0; color: #000; }
+.badge-approved  { background-color: #198754; }
+.badge-rejected  { background-color: #dc3545; }
+.badge-archived  { background-color: #343a40; }
+
+/* Activity status colors */
+.status-not-started  { background-color: #e9ecef; color: #333; }
+.status-in-progress  { background-color: #ffc107; color: #000; }
+.status-completed    { background-color: #198754; color: #fff; }
+.status-delayed      { background-color: #dc3545; color: #fff; }
+.status-rolled-over  { background-color: #fd7e14; color: #fff; }
+.status-stopped      { background-color: #6c757d; color: #fff; }
+
+/* Gantt table */
+.gantt-table th,
+.gantt-table td {
+    text-align: center;
+    padding: 3px 4px;
+    font-size: 0.8rem;
+}
+
+.gantt-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Progress bars in tables */
+.table .progress {
+    min-width: 60px;
+}
+
+/* Card shadows */
+.card.shadow {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1) !important;
+}
+
+/* Tab content */
+.tab-content {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    padding: 20px;
+    border-radius: 0 0 6px 6px;
+}
+
+.nav-tabs .nav-link {
+    font-size: 0.9rem;
+}
+
+/* Form labels */
+.form-label.fw-semibold {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Textarea default height */
+textarea.form-control {
+    min-height: 100px;
+}
+
+/* RTL-specific adjustments */
+.ms-2 { margin-left: 0.5rem !important; }
+.me-2 { margin-right: 0.5rem !important; }
+
+/* Alert dismiss button RTL fix */
+.alert .btn-close {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Table action buttons */
+.btn-xs {
+    font-size: 0.75rem;
+    padding: 1px 5px;
+}

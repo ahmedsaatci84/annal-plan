@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}التوصيات — {{ plan }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card shadow">
+            <div class="card-header bg-secondary text-white"><h5 class="mb-0">التوصيات النهائية — {{ plan }}</h5></div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">التوصيات</label>
+                        {{ form.recommendations }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                    <a href="{% url 'plans:detail' plan.pk %}" class="btn btn-outline-secondary ms-2">إلغاء</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

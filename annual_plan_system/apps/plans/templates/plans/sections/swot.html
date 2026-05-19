@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}تعديل SWOT — {{ plan }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">تحليل SWOT — {{ plan }}</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">نقاط القوة</div>
+                                <div class="card-body">
+                                    {{ form.strengths }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-danger">
+                                <div class="card-header bg-danger text-white">نقاط الضعف</div>
+                                <div class="card-body">{{ form.weaknesses }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">الفرص</div>
+                                <div class="card-body">{{ form.opportunities }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">التهديدات</div>
+                                <div class="card-body">{{ form.threats }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                        <a href="{% url 'plans:detail' plan.pk %}" class="btn btn-outline-secondary ms-2">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{% if edit_mode %}تعديل مستخدم{% else %}مستخدم جديد{% endif %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">{% if edit_mode %}تعديل مستخدم{% else %}مستخدم جديد{% endif %}</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <h6 class="border-bottom pb-2 mb-3">بيانات الدخول</h6>
+                    {% if not edit_mode %}
+                    {% for field in user_form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="text-danger small">{{ field.errors.as_text }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <h6 class="border-bottom pb-2 mb-3 mt-4">بيانات الملف الشخصي</h6>
+                    {% for field in profile_form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="text-danger small">{{ field.errors.as_text }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                    <a href="{% url 'accounts:user_list' %}" class="btn btn-outline-secondary ms-2">إلغاء</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

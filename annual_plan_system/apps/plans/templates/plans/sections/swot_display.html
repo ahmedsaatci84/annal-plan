@@ -1,0 +1,25 @@
+{% load rtl_extras %}
+<div class="col-md-6">
+    <div class="card border-success h-100">
+        <div class="card-header bg-success text-white"><i class="fas fa-plus-circle me-2"></i>نقاط القوة</div>
+        <div class="card-body">{{ swot.strengths|default:"—"|linebreaks }}</div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card border-danger h-100">
+        <div class="card-header bg-danger text-white"><i class="fas fa-minus-circle me-2"></i>نقاط الضعف</div>
+        <div class="card-body">{{ swot.weaknesses|default:"—"|linebreaks }}</div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card border-primary h-100">
+        <div class="card-header bg-primary text-white"><i class="fas fa-lightbulb me-2"></i>الفرص</div>
+        <div class="card-body">{{ swot.opportunities|default:"—"|linebreaks }}</div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card border-warning h-100">
+        <div class="card-header bg-warning text-dark"><i class="fas fa-exclamation-triangle me-2"></i>التهديدات</div>
+        <div class="card-body">{{ swot.threats|default:"—"|linebreaks }}</div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+{% load rtl_extras %}
+<div class="card mb-3 border-start border-primary border-3">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light">
+        <div>
+            <span class="badge bg-primary fs-6 me-2">{{ goal.code }}</span>
+            <strong>{{ goal.title }}</strong>
+        </div>
+        <div class="d-flex gap-1">
+            <span class="badge bg-info">{{ goal.goal_type }}</span>
+            {% if can_edit %}
+            <a href="{% url 'plans:goal_edit' plan.pk goal.pk %}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-edit"></i>
+            </a>
+            <form method="post" action="{% url 'plans:goal_delete' plan.pk goal.pk %}" class="d-inline"
+                  onsubmit="return confirm('هل تريد حذف هذا الهدف؟')">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <small class="text-muted">KPI: <strong>{{ goal.kpi_type }}</strong></small>
+            {% if can_edit %}
+            <a href="{% url 'plans:activity_create' plan.pk goal.pk %}" class="btn btn-sm btn-success">
+                <i class="fas fa-plus me-1"></i>إضافة نشاط
+            </a>
+            {% endif %}
+        </div>
+        {% if goal.activities.all %}
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover mb-0 small">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>الرمز</th><th>النشاط</th><th>التشكيل المسؤول</th>
+                        <th>البداية</th><th>النهاية</th><th>المدة</th>
+                        <th>مخطط%</th><th>منجز%</th><th>الحالة</th>
+                        {% if can_edit %}<th>إجراءات</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for act in goal.activities.all %}
+                    <tr>
+                        <td><code>{{ act.code }}</code></td>
+                        <td>{{ act.title|truncatechars:50 }}</td>
+                        <td>{% if act.responsible_formation %}{{ act.responsible_formation.name_ar }}{% else %}—{% endif %}</td>
+                        <td>{{ act.start_date }}</td>
+                        <td>{{ act.end_date }}</td>
+                        <td>{{ act.duration_days }} يوم</td>
+                        <td>
+                            <div class="progress" style="height:16px;">
+                                <div class="progress-bar bg-info" style="width:{{ act.planned_completion_pct }}%">
+                                    {{ act.planned_completion_pct }}%
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="progress" style="height:16px;">
+                                <div class="progress-bar bg-{{ act.actual_completion_pct|pct_color }}"
+                                     style="width:{{ act.actual_completion_pct }}%">
+                                    {{ act.actual_completion_pct }}%
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge"
+                                  style="background-color:{{ act.activity_status|activity_status_color }}; color:#000;">
+                                {{ act.activity_status|activity_status_label }}
+                            </span>
+                        </td>
+                        {% if can_edit %}
+                        <td>
+                            <a href="{% url 'plans:activity_edit' plan.pk goal.pk act.pk %}"
+                               class="btn btn-xs btn-outline-primary btn-sm py-0 px-1">تعديل</a>
+                            <form method="post" action="{% url 'plans:activity_delete' plan.pk goal.pk act.pk %}"
+                                  class="d-inline" onsubmit="return confirm('حذف النشاط؟')">
+                                {% csrf_token %}
+                                <button class="btn btn-xs btn-outline-danger btn-sm py-0 px-1">حذف</button>
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-muted small px-2">لا يوجد أنشطة بعد.</div>
+        {% endif %}
+    </div>
+</div>

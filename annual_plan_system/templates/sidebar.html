@@ -1,0 +1,37 @@
+{% load rtl_extras %}
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse border-end py-3">
+    <div class="position-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.namespace == 'dashboard' %}active fw-bold{% endif %}"
+                   href="{% url 'dashboard:index' %}">
+                    <i class="fas fa-tachometer-alt me-2"></i>لوحة التحكم
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.namespace == 'plans' %}active fw-bold{% endif %}"
+                   href="{% url 'plans:list' %}">
+                    <i class="fas fa-file-alt me-2"></i>الخطط السنوية
+                </a>
+            </li>
+            {% if user.profile.role == 'ADMIN' %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.namespace == 'formations' %}active fw-bold{% endif %}"
+                   href="{% url 'formations:list' %}">
+                    <i class="fas fa-sitemap me-2"></i>التشكيلات
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:user_list' %}">
+                    <i class="fas fa-users me-2"></i>المستخدمون
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/">
+                    <i class="fas fa-cogs me-2"></i>لوحة الإدارة
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,59 @@
+{% load rtl_extras %}
+<h6 class="mb-3">ملخص الأهداف والأنشطة</h6>
+<div class="table-responsive">
+    <table class="table table-sm table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th rowspan="2">الهدف</th>
+                <th rowspan="2">العنوان</th>
+                <th colspan="2">الأنشطة</th>
+                <th colspan="4">الحالة</th>
+                <th rowspan="2">نسبة الإنجاز</th>
+                <th rowspan="2">الحالة الكلية</th>
+            </tr>
+            <tr class="table-secondary">
+                <th>الكلي</th><th>مكتملة</th>
+                <th>قيد التنفيذ</th><th>منقولة</th><th>غير منجزة</th><th>متأخرة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for g in summary.goals %}
+            <tr>
+                <td class="text-center fw-bold">{{ g.goal.code }}</td>
+                <td>{{ g.goal.title }}</td>
+                <td class="text-center">{{ g.total }}</td>
+                <td class="text-center text-success fw-bold">{{ g.completed }}</td>
+                <td class="text-center text-primary">{{ g.in_progress }}</td>
+                <td class="text-center text-warning">{{ g.rolled_over }}</td>
+                <td class="text-center text-secondary">{{ g.not_completed }}</td>
+                <td class="text-center text-danger">{{ g.delayed }}</td>
+                <td>
+                    <div class="progress" style="height:18px;">
+                        <div class="progress-bar bg-{{ g.completion_pct|pct_color }}"
+                             style="width:{{ g.completion_pct }}%;">{{ g.completion_pct }}%</div>
+                    </div>
+                </td>
+                <td><span class="badge bg-{{ g.status_class }}">{{ g.status }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="table-secondary fw-bold text-center">
+            <tr>
+                <td colspan="2">الإجمالي</td>
+                <td>{{ summary.total_activities }}</td>
+                <td>{{ summary.total_completed }}</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td colspan="2">
+                    <div class="progress" style="height:18px;">
+                        <div class="progress-bar bg-success" style="width:{{ summary.overall_pct }}%;">
+                            {{ summary.overall_pct }}%
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

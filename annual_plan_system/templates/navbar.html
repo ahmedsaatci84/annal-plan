@@ -1,0 +1,35 @@
+{% load rtl_extras %}
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'dashboard:index' %}">
+            <i class="fas fa-calendar-check me-1"></i> نظام إدارة الخطة السنوية
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        {% if user.profile.full_name_ar %}{{ user.profile.full_name_ar }}{% else %}{{ user.username }}{% endif %}
+                        <span class="badge bg-light text-dark ms-1">{{ user.profile.role|role_label }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-start">
+                        <li><a class="dropdown-item" href="{% url 'accounts:password_change' %}">
+                            <i class="fas fa-key me-2"></i>تغيير كلمة المرور</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="post" action="{% url 'accounts:logout' %}">
+                                {% csrf_token %}
+                                <button class="dropdown-item text-danger" type="submit">
+                                    <i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
