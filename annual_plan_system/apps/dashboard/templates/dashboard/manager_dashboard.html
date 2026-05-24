@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% load rtl_extras %}
-{% block title %}لوحة المدير{% endblock %}
+{% load i18n rtl_extras %}
+{% block title %}{% trans "Manager Dashboard" %}{% endblock %}
 {% block content %}
-<h4 class="mb-4"><i class="fas fa-tachometer-alt me-2 text-primary"></i>لوحة المدير — {{ request.user.profile.formation.name_ar }}</h4>
+<h4 class="mb-4"><i class="fas fa-tachometer-alt me-2 text-primary"></i>{% trans "Manager Dashboard" %} — {{ request.user.profile.formation.name_ar }}</h4>
 
 <div class="row g-3 mb-4">
     <div class="col-md-4">
         <div class="card border-primary h-100">
             <div class="card-body text-center">
                 <div class="fs-1 fw-bold text-primary">{{ plans.count }}</div>
-                <div>إجمالي الخطط</div>
+                <div>{% trans "Total Plans" %}</div>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
         <div class="card border-warning h-100">
             <div class="card-body text-center">
                 <div class="fs-1 fw-bold text-warning">{{ pending_count }}</div>
-                <div>بانتظار المراجعة</div>
+                <div>{% trans "Pending Review" %}</div>
             </div>
         </div>
     </div>
@@ -25,30 +25,30 @@
         <div class="card border-danger h-100">
             <div class="card-body text-center">
                 <div class="fs-1 fw-bold text-danger">{{ overdue_activities }}</div>
-                <div>أنشطة متأخرة</div>
+                <div>{% trans "Overdue Activities" %}</div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="card">
-    <div class="card-header"><strong>خطط التشكيل والتشكيلات التابعة</strong></div>
+    <div class="card-header"><strong>{% trans "Formation Plans" %}</strong></div>
     <div class="table-responsive">
         <table class="table table-sm table-hover mb-0">
-            <thead class="table-secondary">
-                <tr><th>التشكيل</th><th>السنة</th><th>الحالة</th><th>أُنشئت في</th><th></th></tr>
+            <thead>
+                <tr><th>{% trans "Formation" %}</th><th>{% trans "Year" %}</th><th>{% trans "Status" %}</th><th>{% trans "Created" %}</th><th></th></tr>
             </thead>
             <tbody>
                 {% for plan in plans %}
                 <tr>
                     <td>{{ plan.formation.name_ar }}</td>
                     <td>{{ plan.plan_year }}</td>
-                    <td><span class="badge bg-{{ plan.status|status_badge }}">{{ plan.status|status_label }}</span></td>
+                    <td><span class="badge badge-{{ plan.status|status_badge }}">{{ plan.status|status_label }}</span></td>
                     <td>{{ plan.created_at|date:"Y/m/d" }}</td>
-                    <td><a href="{% url 'plans:detail' plan.pk %}" class="btn btn-sm btn-outline-primary">عرض</a></td>
+                    <td><a href="{% url 'plans:detail' plan.pk %}" class="btn btn-sm btn-outline-primary">{% trans "View" %}</a></td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="5" class="text-center text-muted">لا توجد خطط</td></tr>
+                <tr><td colspan="5" class="text-center text-muted">{% trans "No plans yet." %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>

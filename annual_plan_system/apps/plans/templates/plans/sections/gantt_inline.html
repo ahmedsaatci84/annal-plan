@@ -30,7 +30,7 @@
             {% for covered in act.gantt_months %}
             <td class="text-center p-0">
                 {% if covered %}
-                <div style="background-color:{{ act.activity_status|activity_status_color }};height:24px;border-radius:3px;" title="{{ act.activity_status|activity_status_label }}"></div>
+                <div class="status-{{ act.activity_status|activity_status_class }}" style="height:24px;border-radius:3px;" title="{{ act.activity_status|activity_status_label }}"></div>
                 {% endif %}
             </td>
             {% endfor %}

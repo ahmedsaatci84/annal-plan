@@ -1,34 +1,63 @@
-{% load static rtl_extras %}
+{% load static i18n rtl_extras %}
+{% get_current_language as LANG_CODE %}
+{% get_current_language_bidi as LANG_BIDI %}
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ LANG_CODE }}" {% if LANG_BIDI %}dir="rtl"{% else %}dir="ltr"{% endif %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}نظام إدارة الخطة السنوية{% endblock %}</title>
+    <title>{% block title %}{% trans "Annual Plan Management System" %}{% endblock %}</title>
+
+    {% if LANG_BIDI %}
     <!-- Bootstrap 5 RTL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+    {% else %}
+    <!-- Bootstrap 5 LTR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    {% endif %}
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Custom RTL CSS -->
+
+    <!-- Google Fonts: Inter (LTR) + Cairo (Arabic/RTL) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/custom-rtl.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="{% if user.is_authenticated %}app-layout{% else %}auth-layout{% endif %}">
 
 {% if user.is_authenticated %}
+
+<!-- ===== Top Navbar ===== -->
 {% include "navbar.html" %}
-<div class="container-fluid">
-    <div class="row">
-        {% include "sidebar.html" %}
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+
+<!-- ===== App Shell ===== -->
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    {% include "sidebar.html" %}
+
+    <!-- Main content area -->
+    <div class="app-content-wrapper">
+        <main class="app-main" id="main-content">
+
 {% endif %}
 
+<!-- Flash messages -->
 {% if messages %}
-<div class="mb-3">
+<div class="messages-container">
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+        {% if message.tags == 'success' %}<i class="fas fa-check-circle"></i>
+        {% elif message.tags == 'error' or message.tags == 'danger' %}<i class="fas fa-exclamation-circle"></i>
+        {% elif message.tags == 'warning' %}<i class="fas fa-exclamation-triangle"></i>
+        {% else %}<i class="fas fa-info-circle"></i>{% endif %}
+        <span>{{ message }}</span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="{% trans 'Close' %}"></button>
     </div>
     {% endfor %}
 </div>
@@ -38,8 +67,9 @@
 
 {% if user.is_authenticated %}
         </main>
-    </div>
-</div>
+    </div><!-- /.app-content-wrapper -->
+</div><!-- /.app-shell -->
+
 {% endif %}
 
 <!-- Bootstrap JS -->

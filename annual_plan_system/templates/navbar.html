@@ -1,35 +1,73 @@
-{% load rtl_extras %}
-<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top shadow-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="{% url 'dashboard:index' %}">
-            <i class="fas fa-calendar-check me-1"></i> نظام إدارة الخطة السنوية
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+{% load i18n rtl_extras %}
+{% get_current_language as LANG_CODE %}
+<header class="app-topbar">
+    <div class="topbar-start">
+        <!-- Sidebar toggle (mobile) -->
+        <button class="topbar-toggle" id="sidebarToggle" aria-label="{% trans 'Toggle Sidebar' %}">
+            <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle me-1"></i>
-                        {% if user.profile.full_name_ar %}{{ user.profile.full_name_ar }}{% else %}{{ user.username }}{% endif %}
-                        <span class="badge bg-light text-dark ms-1">{{ user.profile.role|role_label }}</span>
+
+        <!-- Brand in topbar (visible on mobile) -->
+        <a class="topbar-brand" href="{% url 'dashboard:index' %}">
+            <i class="fas fa-calendar-check me-2"></i>
+            <span>{% trans "Annual Plan Management System" %}</span>
+        </a>
+    </div>
+
+    <div class="topbar-end">
+        <!-- Language Switcher -->
+        <form method="post" action="{% url 'set_language' %}" class="topbar-lang-form">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path|strip_lang_prefix }}">
+            {% if LANG_CODE == 'ar' %}
+            <button type="submit" name="language" value="en" class="topbar-btn topbar-lang-btn" title="Switch to English">
+                <i class="fas fa-globe"></i> <span>EN</span>
+            </button>
+            {% else %}
+            <button type="submit" name="language" value="ar" class="topbar-btn topbar-lang-btn" title="التبديل إلى العربية">
+                <i class="fas fa-globe"></i> <span>عر</span>
+            </button>
+            {% endif %}
+        </form>
+
+        <!-- User Menu -->
+        <div class="topbar-user dropdown">
+            <button class="topbar-user-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="topbar-avatar">
+                    <i class="fas fa-user"></i>
+                </span>
+                <span class="topbar-username">
+                    {% if user.profile.full_name_ar %}{{ user.profile.full_name_ar }}{% else %}{{ user.username }}{% endif %}
+                </span>
+                <span class="topbar-role-badge">{{ user.profile.role|role_label }}</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end topbar-dropdown">
+                <li class="dropdown-header">
+                    <i class="fas fa-user-circle me-2"></i>
+                    {% if user.profile.full_name_ar %}{{ user.profile.full_name_ar }}{% else %}{{ user.username }}{% endif %}
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'accounts:password_change' %}">
+                        <i class="fas fa-key me-2"></i>{% trans "Change Password" %}
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-start">
-                        <li><a class="dropdown-item" href="{% url 'accounts:password_change' %}">
-                            <i class="fas fa-key me-2"></i>تغيير كلمة المرور</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form method="post" action="{% url 'accounts:logout' %}">
-                                {% csrf_token %}
-                                <button class="dropdown-item text-danger" type="submit">
-                                    <i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button class="dropdown-item text-danger" type="submit">
+                            <i class="fas fa-right-from-bracket me-2"></i>{% trans "Logout" %}
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
     </div>
-</nav>
+</header>
+
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.getElementById('appSidebar')?.classList.toggle('sidebar-open');
+    });
+</script>

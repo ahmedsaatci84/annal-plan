@@ -1,37 +1,57 @@
-{% load rtl_extras %}
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse border-end py-3">
-    <div class="position-sticky">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.namespace == 'dashboard' %}active fw-bold{% endif %}"
-                   href="{% url 'dashboard:index' %}">
-                    <i class="fas fa-tachometer-alt me-2"></i>لوحة التحكم
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.namespace == 'plans' %}active fw-bold{% endif %}"
-                   href="{% url 'plans:list' %}">
-                    <i class="fas fa-file-alt me-2"></i>الخطط السنوية
-                </a>
-            </li>
-            {% if user.profile.role == 'ADMIN' %}
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.namespace == 'formations' %}active fw-bold{% endif %}"
-                   href="{% url 'formations:list' %}">
-                    <i class="fas fa-sitemap me-2"></i>التشكيلات
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:user_list' %}">
-                    <i class="fas fa-users me-2"></i>المستخدمون
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/">
-                    <i class="fas fa-cogs me-2"></i>لوحة الإدارة
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
+{% load i18n rtl_extras %}
+<aside id="appSidebar" class="app-sidebar">
+    <div class="sidebar-inner">
+
+        <!-- Brand / Logo area inside sidebar -->
+        <div class="sidebar-brand">
+            <a href="{% url 'dashboard:index' %}" class="sidebar-brand-link">
+                <span class="sidebar-brand-icon"><i class="fas fa-calendar-check"></i></span>
+                <span class="sidebar-brand-text">{% trans "APS" %}</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'dashboard' %}active{% endif %}"
+                       href="{% url 'dashboard:index' %}">
+                        <i class="fas fa-gauge-high sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "Dashboard" %}</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'plans' %}active{% endif %}"
+                       href="{% url 'plans:list' %}">
+                        <i class="fas fa-file-lines sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "Annual Plans" %}</span>
+                    </a>
+                </li>
+
+                {% if user.profile.role == 'ADMIN' %}
+                <li class="sidebar-section-title">{% trans "Administration" %}</li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'formations' %}active{% endif %}"
+                       href="{% url 'formations:list' %}">
+                        <i class="fas fa-sitemap sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "Formations" %}</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link {% if 'accounts' in request.path and 'users' in request.path %}active{% endif %}"
+                       href="{% url 'accounts:user_list' %}">
+                        <i class="fas fa-users sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "Users" %}</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link" href="/admin/" target="_blank">
+                        <i class="fas fa-screwdriver-wrench sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "Admin Panel" %}</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div><!-- /.sidebar-inner -->
+</aside>

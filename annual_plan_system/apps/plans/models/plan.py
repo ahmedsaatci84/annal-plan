@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 
 class AnnualPlan(models.Model):
@@ -12,45 +13,45 @@ class AnnualPlan(models.Model):
     STATUS_ARCHIVED = 'ARCHIVED'
 
     STATUS_CHOICES = [
-        (STATUS_DRAFT, 'مسودة'),
-        (STATUS_SUBMITTED, 'مقدمة'),
-        (STATUS_UNDER_REVIEW, 'قيد المراجعة'),
-        (STATUS_APPROVED, 'معتمدة'),
-        (STATUS_REJECTED, 'مرفوضة'),
-        (STATUS_ARCHIVED, 'مؤرشفة'),
+        (STATUS_DRAFT, _('Draft')),
+        (STATUS_SUBMITTED, _('Submitted')),
+        (STATUS_UNDER_REVIEW, _('Under Review')),
+        (STATUS_APPROVED, _('Approved')),
+        (STATUS_REJECTED, _('Rejected')),
+        (STATUS_ARCHIVED, _('Archived')),
     ]
 
     formation = models.ForeignKey(
         'formations.Formation', on_delete=models.PROTECT,
-        related_name='annual_plans', verbose_name='التشكيل'
+        related_name='annual_plans', verbose_name=_('formation')
     )
-    plan_year = models.PositiveSmallIntegerField(verbose_name='سنة الخطة')
-    manager_name = models.CharField(max_length=200, verbose_name='اسم مدير التشكيل')
-    organizer_name = models.CharField(max_length=200, verbose_name='اسم منظم الاستمارة')
-    endorsement_text = models.TextField(blank=True, null=True, verbose_name='نص المصادقة')
-    endorsement_date = models.DateField(blank=True, null=True, verbose_name='تاريخ المصادقة')
+    plan_year = models.PositiveSmallIntegerField(verbose_name=_('plan year'))
+    manager_name = models.CharField(max_length=200, verbose_name=_('manager name'))
+    organizer_name = models.CharField(max_length=200, verbose_name=_('organizer name'))
+    endorsement_text = models.TextField(blank=True, null=True, verbose_name=_('endorsement text'))
+    endorsement_date = models.DateField(blank=True, null=True, verbose_name=_('endorsement date'))
     endorsement_ref_no = models.CharField(
-        max_length=50, blank=True, null=True, verbose_name='رقم الإشارة'
+        max_length=50, blank=True, null=True, verbose_name=_('reference number')
     )
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default=STATUS_DRAFT, verbose_name='الحالة'
+        max_length=20, choices=STATUS_CHOICES, default=STATUS_DRAFT, verbose_name=_('Status')
     )
     recommendations = models.TextField(
-        blank=True, null=True, verbose_name='سابعاً – التوصيات النهائية'
+        blank=True, null=True, verbose_name=_('recommendations')
     )
     created_by = models.ForeignKey(
         User, on_delete=models.PROTECT,
-        related_name='created_plans', verbose_name='أنشأ بواسطة'
+        related_name='created_plans', verbose_name=_('created by')
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاريخ الإنشاء')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='تاريخ التعديل')
-    submitted_at = models.DateTimeField(null=True, blank=True, verbose_name='تاريخ التقديم')
-    approved_at = models.DateTimeField(null=True, blank=True, verbose_name='تاريخ الاعتماد')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+    submitted_at = models.DateTimeField(null=True, blank=True, verbose_name=_('submitted at'))
+    approved_at = models.DateTimeField(null=True, blank=True, verbose_name=_('approved at'))
 
     class Meta:
         unique_together = ('formation', 'plan_year')
-        verbose_name = 'خطة سنوية'
-        verbose_name_plural = 'الخطط السنوية'
+        verbose_name = _('annual plan')
+        verbose_name_plural = _('annual plans')
         ordering = ['-plan_year', 'formation__name_ar']
         indexes = [
             models.Index(fields=['status']),

@@ -1,4 +1,4 @@
-{% load rtl_extras %}
+{% load i18n rtl_extras %}
 <div class="card mb-3 border-start border-primary border-3">
     <div class="card-header d-flex justify-content-between align-items-center bg-light">
         <div>
@@ -12,7 +12,7 @@
                 <i class="fas fa-edit"></i>
             </a>
             <form method="post" action="{% url 'plans:goal_delete' plan.pk goal.pk %}" class="d-inline"
-                  onsubmit="return confirm('هل تريد حذف هذا الهدف؟')">
+                  onsubmit="return confirm('{% trans "Are you sure you want to delete this goal?" %}')">
                 {% csrf_token %}
                 <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
             </form>
@@ -24,19 +24,19 @@
             <small class="text-muted">KPI: <strong>{{ goal.kpi_type }}</strong></small>
             {% if can_edit %}
             <a href="{% url 'plans:activity_create' plan.pk goal.pk %}" class="btn btn-sm btn-success">
-                <i class="fas fa-plus me-1"></i>إضافة نشاط
+                <i class="fas fa-plus me-1"></i>{% trans "Add Activity" %}
             </a>
             {% endif %}
         </div>
         {% if goal.activities.all %}
         <div class="table-responsive">
             <table class="table table-sm table-bordered table-hover mb-0 small">
-                <thead class="table-secondary">
+                <thead>
                     <tr>
-                        <th>الرمز</th><th>النشاط</th><th>التشكيل المسؤول</th>
-                        <th>البداية</th><th>النهاية</th><th>المدة</th>
-                        <th>مخطط%</th><th>منجز%</th><th>الحالة</th>
-                        {% if can_edit %}<th>إجراءات</th>{% endif %}
+                        <th>{% trans "Code" %}</th><th>{% trans "Activity" %}</th><th>{% trans "Responsible Formation" %}</th>
+                        <th>{% trans "Start" %}</th><th>{% trans "End" %}</th><th>{% trans "Duration" %}</th>
+                        <th>{% trans "Planned %" %}</th><th>{% trans "Actual %" %}</th><th>{% trans "Status" %}</th>
+                        {% if can_edit %}<th>{% trans "Actions" %}</th>{% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,7 @@
                         <td>{% if act.responsible_formation %}{{ act.responsible_formation.name_ar }}{% else %}—{% endif %}</td>
                         <td>{{ act.start_date }}</td>
                         <td>{{ act.end_date }}</td>
-                        <td>{{ act.duration_days }} يوم</td>
+                        <td>{{ act.duration_days }} {% trans "days" %}</td>
                         <td>
                             <div class="progress" style="height:16px;">
                                 <div class="progress-bar bg-info" style="width:{{ act.planned_completion_pct }}%">
@@ -64,19 +64,18 @@
                             </div>
                         </td>
                         <td>
-                            <span class="badge"
-                                  style="background-color:{{ act.activity_status|activity_status_color }}; color:#000;">
+                            <span class="badge status-{{ act.activity_status|activity_status_class }}">
                                 {{ act.activity_status|activity_status_label }}
                             </span>
                         </td>
                         {% if can_edit %}
                         <td>
                             <a href="{% url 'plans:activity_edit' plan.pk goal.pk act.pk %}"
-                               class="btn btn-xs btn-outline-primary btn-sm py-0 px-1">تعديل</a>
+                               class="btn btn-xs btn-outline-primary">{% trans "Edit" %}</a>
                             <form method="post" action="{% url 'plans:activity_delete' plan.pk goal.pk act.pk %}"
-                                  class="d-inline" onsubmit="return confirm('حذف النشاط؟')">
+                                  class="d-inline" onsubmit="return confirm('{% trans "Delete Activity?" %}')">
                                 {% csrf_token %}
-                                <button class="btn btn-xs btn-outline-danger btn-sm py-0 px-1">حذف</button>
+                                <button class="btn btn-xs btn-outline-danger">{% trans "Delete" %}</button>
                             </form>
                         </td>
                         {% endif %}
@@ -86,7 +85,7 @@
             </table>
         </div>
         {% else %}
-        <div class="text-muted small px-2">لا يوجد أنشطة بعد.</div>
+        <div class="text-muted small px-2">{% trans "No goals added yet." %}</div>
         {% endif %}
     </div>
 </div>

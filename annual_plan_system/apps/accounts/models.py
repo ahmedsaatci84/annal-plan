@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class UserProfile(models.Model):
@@ -10,32 +11,32 @@ class UserProfile(models.Model):
     ROLE_VIEWER = 'VIEWER'
 
     ROLE_CHOICES = [
-        (ROLE_ADMIN, 'مسؤول النظام'),
-        (ROLE_MANAGER, 'مدير التشكيل'),
-        (ROLE_ORGANIZER, 'منظم الاستمارة'),
-        (ROLE_REVIEWER, 'مراجع'),
-        (ROLE_VIEWER, 'مشاهد'),
+        (ROLE_ADMIN, _('System Admin')),
+        (ROLE_MANAGER, _('Formation Manager')),
+        (ROLE_ORGANIZER, _('Form Organizer')),
+        (ROLE_REVIEWER, _('Reviewer')),
+        (ROLE_VIEWER, _('Viewer')),
     ]
 
     user = models.OneToOneField(
         User, on_delete=models.CASCADE,
-        related_name='profile', verbose_name='المستخدم'
+        related_name='profile', verbose_name=_('user')
     )
-    formation = models.ForeignKey(
+    formation = models.OneToOneField(
         'formations.Formation', on_delete=models.PROTECT,
         null=True, blank=True,
-        related_name='members', verbose_name='التشكيل'
+        related_name='user_profile', verbose_name=_('formation')
     )
     role = models.CharField(
         max_length=20, choices=ROLE_CHOICES, default=ROLE_ORGANIZER,
-        verbose_name='الدور'
+        verbose_name=_('Role')
     )
-    full_name_ar = models.CharField(max_length=200, verbose_name='الاسم الكامل بالعربية')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاريخ الإنشاء')
+    full_name_ar = models.CharField(max_length=200, verbose_name=_('full name in arabic'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
     class Meta:
-        verbose_name = 'ملف مستخدم'
-        verbose_name_plural = 'ملفات المستخدمين'
+        verbose_name = _('user profile')
+        verbose_name_plural = _('user profiles')
         indexes = [
             models.Index(fields=['role']),
         ]

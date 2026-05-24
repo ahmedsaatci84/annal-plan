@@ -6,6 +6,11 @@ class Goal(models.Model):
         'plans.AnnualPlan', on_delete=models.CASCADE,
         related_name='goals', verbose_name='الخطة'
     )
+    formation = models.ForeignKey(
+        'formations.Formation', on_delete=models.PROTECT,
+        null=True, blank=True,
+        related_name='goals', verbose_name='التشكيل'
+    )
     sequence = models.PositiveSmallIntegerField(verbose_name='الترتيب')
     code = models.CharField(max_length=20, verbose_name='رمز الهدف')
     title = models.TextField(verbose_name='الهدف الرئيسي')
@@ -29,6 +34,8 @@ class Goal(models.Model):
     def save(self, *args, **kwargs):
         if not self.code:
             self.code = f'({self.sequence})'
+        if self.formation_id is None and self.plan_id:
+            self.formation_id = self.plan.formation_id
         super().save(*args, **kwargs)
 
     def completion_pct(self):

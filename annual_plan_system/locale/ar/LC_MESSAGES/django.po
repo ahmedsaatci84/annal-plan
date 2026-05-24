@@ -1,0 +1,855 @@
+# Arabic translations for Annual Plan Management System
+# Copyright (C) 2026
+# This file is distributed under the same license as the project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Annual Plan Management System\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-20 10:14+0300\n"
+"PO-Revision-Date: 2026-05-20 00:00+0300\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+# ---------------------------------------------------------------------------
+# User roles
+# ---------------------------------------------------------------------------
+#: .\apps\accounts\models.py:14 .\apps\core\templatetags\rtl_extras.py:103
+msgid "System Admin"
+msgstr "مسؤول النظام"
+
+#: .\apps\accounts\models.py:15 .\apps\core\templatetags\rtl_extras.py:104
+msgid "Formation Manager"
+msgstr "مدير التشكيل"
+
+#: .\apps\accounts\models.py:16 .\apps\core\templatetags\rtl_extras.py:105
+msgid "Form Organizer"
+msgstr "منظم الاستمارة"
+
+#: .\apps\accounts\models.py:17 .\apps\core\templatetags\rtl_extras.py:106
+msgid "Reviewer"
+msgstr "مراجع"
+
+#: .\apps\accounts\models.py:18 .\apps\core\templatetags\rtl_extras.py:107
+msgid "Viewer"
+msgstr "مشاهد"
+
+# ---------------------------------------------------------------------------
+# Model verbose names
+# ---------------------------------------------------------------------------
+#: .\apps\accounts\models.py:23
+msgid "user"
+msgstr "المستخدم"
+
+#: .\apps\accounts\models.py:28 .\apps\formations\models.py:32
+#: .\apps\plans\models\plan.py:26
+msgid "formation"
+msgstr "تشكيل"
+
+#: .\apps\accounts\models.py:32
+#: .\apps\accounts\templates\accounts\user_list.html:18
+msgid "Role"
+msgstr "الدور"
+
+#: .\apps\accounts\models.py:34
+msgid "full name in arabic"
+msgstr "الاسم الكامل بالعربية"
+
+#: .\apps\accounts\models.py:35 .\apps\formations\models.py:28
+#: .\apps\plans\models\plan.py:46
+msgid "created at"
+msgstr "تاريخ الإنشاء"
+
+#: .\apps\accounts\models.py:38
+msgid "user profile"
+msgstr "ملف مستخدم"
+
+#: .\apps\accounts\models.py:39
+msgid "user profiles"
+msgstr "ملفات المستخدمين"
+
+#: .\apps\accounts\templates\accounts\login.html:4
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+# ---------------------------------------------------------------------------
+# System title
+# ---------------------------------------------------------------------------
+#: .\apps\accounts\templates\accounts\login.html:4
+#: .\apps\accounts\templates\accounts\login.html:15 .\templates\base.html:9
+#: .\templates\navbar.html:13
+msgid "Annual Plan Management System"
+msgstr "نظام إدارة الخطة السنوية"
+
+#: .\apps\accounts\templates\accounts\login.html:16
+msgid ""
+"Plan smarter, track progress, and achieve your goals with a unified "
+"management platform."
+msgstr ""
+
+#: .\apps\accounts\templates\accounts\login.html:21
+msgid "Real-time progress tracking"
+msgstr "تتبع التقدم في الوقت الفعلي"
+
+# ---------------------------------------------------------------------------
+# Formation management
+# ---------------------------------------------------------------------------
+#: .\apps\accounts\templates\accounts\login.html:25
+#, fuzzy
+#| msgid "Formation Management"
+msgid "Multi-level formation management"
+msgstr "إدارة التشكيلات"
+
+#: .\apps\accounts\templates\accounts\login.html:29
+msgid "Role-based access control"
+msgstr "التحكم في الوصول حسب الدور"
+
+#: .\apps\accounts\templates\accounts\login.html:43
+msgid "Welcome Back"
+msgstr "مرحباً"
+
+#: .\apps\accounts\templates\accounts\login.html:44
+msgid "Sign in to continue to your dashboard"
+msgstr "سجّل دخولك للوصول إلى لوحة التحكم"
+
+#: .\apps\accounts\templates\accounts\login.html:68
+msgid "Toggle password visibility"
+msgstr "إظهار/إخفاء كلمة المرور"
+
+#: .\apps\accounts\templates\accounts\login.html:87
+msgid "Sign In"
+msgstr "دخول"
+
+#: .\apps\accounts\templates\accounts\password_change.html:3
+#: .\apps\accounts\templates\accounts\password_change.html:8
+#: .\templates\navbar.html:52
+msgid "Change Password"
+msgstr "تغيير كلمة المرور"
+
+# ---------------------------------------------------------------------------
+# Common actions
+# ---------------------------------------------------------------------------
+#: .\apps\accounts\templates\accounts\password_change.html:19
+#: .\apps\accounts\templates\accounts\user_form.html:32
+#: .\apps\formations\templates\formations\formation_form.html:19
+#: .\apps\plans\templates\plans\plan_form.html:30
+msgid "Save"
+msgstr "حفظ"
+
+#: .\apps\accounts\templates\accounts\password_change.html:20
+#: .\apps\accounts\templates\accounts\user_form.html:33
+#: .\apps\formations\templates\formations\formation_form.html:20
+#: .\apps\plans\templates\plans\plan_detail.html:205
+#: .\apps\plans\templates\plans\plan_detail.html:227
+#: .\apps\plans\templates\plans\plan_form.html:32
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\apps\accounts\templates\accounts\user_form.html:3
+#: .\apps\accounts\templates\accounts\user_form.html:9
+msgid "Edit User"
+msgstr "تعديل مستخدم"
+
+#: .\apps\accounts\templates\accounts\user_form.html:3
+#: .\apps\accounts\templates\accounts\user_form.html:9
+#: .\apps\accounts\templates\accounts\user_list.html:8
+msgid "New User"
+msgstr "مستخدم جديد"
+
+#: .\apps\accounts\templates\accounts\user_form.html:14
+msgid "Login Credentials"
+msgstr "بيانات الدخول"
+
+#: .\apps\accounts\templates\accounts\user_form.html:24
+msgid "Profile Information"
+msgstr "بيانات الملف الشخصي"
+
+#: .\apps\accounts\templates\accounts\user_list.html:3
+#: .\templates\sidebar.html:43
+msgid "Users"
+msgstr "المستخدمون"
+
+# ---------------------------------------------------------------------------
+# User management
+# ---------------------------------------------------------------------------
+#: .\apps\accounts\templates\accounts\user_list.html:6
+msgid "User Management"
+msgstr "إدارة المستخدمين"
+
+#: .\apps\accounts\templates\accounts\user_list.html:16
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: .\apps\accounts\templates\accounts\user_list.html:17
+msgid "Full Name (Arabic)"
+msgstr "الاسم بالعربية"
+
+#: .\apps\accounts\templates\accounts\user_list.html:19
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:87
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:39
+#: .\apps\plans\templates\plans\plan_list.html:39
+msgid "Formation"
+msgstr "التشكيل"
+
+#: .\apps\accounts\templates\accounts\user_list.html:20
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:87
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:39
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:13
+#: .\apps\formations\templates\formations\formation_list.html:15
+#: .\apps\plans\models\plan.py:37
+#: .\apps\plans\templates\plans\plan_list.html:19
+#: .\apps\plans\templates\plans\plan_list.html:42
+#: .\apps\plans\templates\plans\sections\goal_card.html:38
+msgid "Status"
+msgstr "الحالة"
+
+#: .\apps\accounts\templates\accounts\user_list.html:21
+#: .\apps\formations\templates\formations\formation_list.html:15
+#: .\apps\plans\templates\plans\plan_list.html:44
+#: .\apps\plans\templates\plans\sections\goal_card.html:39
+msgid "Actions"
+msgstr "إجراءات"
+
+#: .\apps\accounts\templates\accounts\user_list.html:32
+#: .\apps\formations\templates\formations\formation_list.html:24
+msgid "Active"
+msgstr "نشط"
+
+#: .\apps\accounts\templates\accounts\user_list.html:33
+msgid "Disabled"
+msgstr "معطّل"
+
+#: .\apps\accounts\templates\accounts\user_list.html:36
+#: .\apps\formations\templates\formations\formation_list.html:25
+#: .\apps\plans\templates\plans\plan_detail.html:96
+#: .\apps\plans\templates\plans\plan_detail.html:152
+#: .\apps\plans\templates\plans\sections\goal_card.html:74
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\apps\accounts\templates\accounts\user_list.html:40
+msgid "Disable"
+msgstr "تعطيل"
+
+#: .\apps\accounts\templates\accounts\user_list.html:40
+msgid "Enable"
+msgstr "تفعيل"
+
+#: .\apps\accounts\templates\accounts\user_list.html:46
+msgid "No users found."
+msgstr "لا يوجد مستخدمون"
+
+# ---------------------------------------------------------------------------
+# Plan statuses
+# ---------------------------------------------------------------------------
+#: .\apps\core\templatetags\rtl_extras.py:54
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:13
+#: .\apps\plans\models\plan.py:16
+msgid "Draft"
+msgstr "مسودة"
+
+#: .\apps\core\templatetags\rtl_extras.py:55
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:21
+#: .\apps\plans\models\plan.py:17
+msgid "Submitted"
+msgstr "مقدمة"
+
+#: .\apps\core\templatetags\rtl_extras.py:56
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:29
+#: .\apps\plans\models\plan.py:18
+msgid "Under Review"
+msgstr "قيد المراجعة"
+
+#: .\apps\core\templatetags\rtl_extras.py:57
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:37
+#: .\apps\plans\models\plan.py:19
+msgid "Approved"
+msgstr "معتمدة"
+
+#: .\apps\core\templatetags\rtl_extras.py:58
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:48
+#: .\apps\plans\models\plan.py:20
+msgid "Rejected"
+msgstr "مرفوضة"
+
+#: .\apps\core\templatetags\rtl_extras.py:59
+#: .\apps\formations\templates\formations\formation_list.html:24
+#: .\apps\plans\models\plan.py:21
+msgid "Archived"
+msgstr "مؤرشف"
+
+# ---------------------------------------------------------------------------
+# Activity statuses
+# ---------------------------------------------------------------------------
+#: .\apps\core\templatetags\rtl_extras.py:67
+msgid "Not Started"
+msgstr "لم يبدأ"
+
+#: .\apps\core\templatetags\rtl_extras.py:68
+msgid "In Progress"
+msgstr "قيد الإنجاز"
+
+#: .\apps\core\templatetags\rtl_extras.py:69
+msgid "Completed"
+msgstr "مكتمل"
+
+#: .\apps\core\templatetags\rtl_extras.py:70
+msgid "Delayed"
+msgstr "متأخر"
+
+#: .\apps\core\templatetags\rtl_extras.py:71
+msgid "Rolled Over"
+msgstr "تم ترحيله"
+
+#: .\apps\core\templatetags\rtl_extras.py:72
+msgid "Stopped"
+msgstr "متوقف"
+
+# ---------------------------------------------------------------------------
+# Risk probability
+# ---------------------------------------------------------------------------
+#: .\apps\core\templatetags\rtl_extras.py:93
+msgid "Low"
+msgstr "منخفض"
+
+#: .\apps\core\templatetags\rtl_extras.py:94
+msgid "Medium"
+msgstr "متوسط"
+
+#: .\apps\core\templatetags\rtl_extras.py:95
+msgid "High"
+msgstr "عالي"
+
+# ---------------------------------------------------------------------------
+# Dashboards
+# ---------------------------------------------------------------------------
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:3
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:5
+msgid "Admin Dashboard"
+msgstr "لوحة الإدارة"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:56
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:12
+msgid "Total Plans"
+msgstr "إجمالي الخطط"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:62
+msgid "Risk Distribution"
+msgstr "توزيع المخاطر"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:66
+msgid "Low risk"
+msgstr "منخفضة"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:70
+msgid "Medium risk"
+msgstr "متوسطة"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:74
+msgid "High risk"
+msgstr "عالية"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:83
+msgid "Recent Plans"
+msgstr "آخر الخطط المضافة"
+
+# ---------------------------------------------------------------------------
+# Common labels
+# ---------------------------------------------------------------------------
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:87
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:39
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:13
+#: .\apps\plans\templates\plans\plan_list.html:15
+#: .\apps\plans\templates\plans\plan_list.html:40
+msgid "Year"
+msgstr "السنة"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:87
+#: .\apps\plans\templates\plans\plan_detail.html:168
+msgid "Date"
+msgstr "التاريخ"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:96
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:48
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:22
+#: .\apps\plans\templates\plans\plan_list.html:61
+msgid "View"
+msgstr "عرض"
+
+#: .\apps\dashboard\templates\dashboard\admin_dashboard.html:99
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:51
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:26
+msgid "No plans yet."
+msgstr "لا توجد خطط بعد"
+
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:3
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:5
+msgid "Manager Dashboard"
+msgstr "لوحة المدير"
+
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:20
+msgid "Pending Review"
+msgstr "بانتظار المراجعة"
+
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:28
+msgid "Overdue Activities"
+msgstr "أنشطة متأخرة"
+
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:35
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:9
+msgid "Formation Plans"
+msgstr "خطط التشكيل"
+
+#: .\apps\dashboard\templates\dashboard\manager_dashboard.html:39
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:13
+msgid "Created"
+msgstr "أُنشئت في"
+
+#: .\apps\dashboard\templates\dashboard\no_formation.html:3
+#: .\apps\dashboard\templates\dashboard\no_formation.html:9
+msgid "Formation Not Assigned"
+msgstr "لم يتم تحديد التشكيل"
+
+#: .\apps\dashboard\templates\dashboard\no_formation.html:10
+msgid ""
+"Your account is not linked to any formation yet. Please contact the system "
+"administrator to assign your formation."
+msgstr ""
+"لم يتم ربط حسابك بأي تشكيل بعد. يرجى التواصل مع مسؤول النظام لتحديد التشكيل "
+"الخاص بك."
+
+#: .\apps\dashboard\templates\dashboard\no_formation.html:11
+msgid "Back"
+msgstr "العودة"
+
+# ---------------------------------------------------------------------------
+# Navigation
+# ---------------------------------------------------------------------------
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:3
+#: .\templates\sidebar.html:19
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:5
+msgid "Welcome"
+msgstr "مرحباً"
+
+#: .\apps\dashboard\templates\dashboard\user_dashboard.html:6
+#: .\apps\plans\templates\plans\plan_detail.html:47
+msgid "Formation:"
+msgstr "التشكيل:"
+
+# ---------------------------------------------------------------------------
+# Formation levels
+# ---------------------------------------------------------------------------
+#: .\apps\formations\models.py:13
+msgid "Company"
+msgstr "شركة"
+
+#: .\apps\formations\models.py:14
+msgid "Board"
+msgstr "هيأة"
+
+#: .\apps\formations\models.py:15
+msgid "Division"
+msgstr "قسم"
+
+#: .\apps\formations\models.py:16
+msgid "Section"
+msgstr "شعبة"
+
+#: .\apps\formations\models.py:17
+msgid "Unit"
+msgstr "وحدة"
+
+#: .\apps\formations\models.py:20
+#: .\apps\formations\templates\formations\formation_list.html:15
+#: .\apps\plans\templates\plans\sections\goal_card.html:36
+msgid "Code"
+msgstr "الرمز"
+
+#: .\apps\formations\models.py:21
+msgid "name in arabic"
+msgstr "الاسم بالعربية"
+
+#: .\apps\formations\models.py:24
+msgid "parent formation"
+msgstr "التشكيل الأعلى"
+
+#: .\apps\formations\models.py:26
+#: .\apps\formations\templates\formations\formation_list.html:15
+msgid "Level"
+msgstr "المستوى"
+
+#: .\apps\formations\models.py:27
+msgid "is active"
+msgstr "نشط"
+
+#: .\apps\formations\models.py:29 .\apps\plans\models\plan.py:47
+msgid "updated at"
+msgstr "تاريخ التعديل"
+
+#: .\apps\formations\models.py:33
+msgid "formations plural"
+msgstr "التشكيلات"
+
+#: .\apps\formations\templates\formations\formation_list.html:3
+#: .\templates\sidebar.html:36
+msgid "Formations"
+msgstr "التشكيلات"
+
+# ---------------------------------------------------------------------------
+# Formation management
+# ---------------------------------------------------------------------------
+#: .\apps\formations\templates\formations\formation_list.html:6
+msgid "Formation Management"
+msgstr "إدارة التشكيلات"
+
+#: .\apps\formations\templates\formations\formation_list.html:8
+msgid "New Formation"
+msgstr "تشكيل جديد"
+
+#: .\apps\formations\templates\formations\formation_list.html:15
+msgid "Name"
+msgstr "الاسم"
+
+#: .\apps\formations\templates\formations\formation_list.html:15
+msgid "Parent"
+msgstr "الأعلى"
+
+#: .\apps\formations\templates\formations\formation_list.html:28
+msgid "No formations found."
+msgstr "لا يوجد تشكيلات"
+
+#: .\apps\plans\models\plan.py:28
+msgid "plan year"
+msgstr "سنة الخطة"
+
+#: .\apps\plans\models\plan.py:29
+msgid "manager name"
+msgstr "اسم مدير التشكيل"
+
+#: .\apps\plans\models\plan.py:30
+msgid "organizer name"
+msgstr "اسم منظم الاستمارة"
+
+#: .\apps\plans\models\plan.py:31
+msgid "endorsement text"
+msgstr "نص المصادقة"
+
+#: .\apps\plans\models\plan.py:32
+msgid "endorsement date"
+msgstr "تاريخ المصادقة"
+
+#: .\apps\plans\models\plan.py:34
+msgid "reference number"
+msgstr "رقم الإشارة"
+
+#: .\apps\plans\models\plan.py:40
+msgid "recommendations"
+msgstr "التوصيات النهائية"
+
+#: .\apps\plans\models\plan.py:44
+msgid "created by"
+msgstr "أنشأ بواسطة"
+
+#: .\apps\plans\models\plan.py:48
+msgid "submitted at"
+msgstr "تاريخ التقديم"
+
+#: .\apps\plans\models\plan.py:49
+msgid "approved at"
+msgstr "تاريخ الاعتماد"
+
+#: .\apps\plans\models\plan.py:53
+msgid "annual plan"
+msgstr "خطة سنوية"
+
+#: .\apps\plans\models\plan.py:54
+msgid "annual plans"
+msgstr "الخطط السنوية"
+
+#: .\apps\plans\templates\plans\plan_detail.html:15
+msgid "Edit Header"
+msgstr "تعديل الرأس"
+
+#: .\apps\plans\templates\plans\plan_detail.html:19
+msgid "Export PDF"
+msgstr "تصدير PDF"
+
+#: .\apps\plans\templates\plans\plan_detail.html:25
+msgid "Are you sure you want to submit the plan for review?"
+msgstr "هل تريد تقديم الخطة للمراجعة؟"
+
+#: .\apps\plans\templates\plans\plan_detail.html:26
+msgid "Submit for Review"
+msgstr "تقديم للمراجعة"
+
+#: .\apps\plans\templates\plans\plan_detail.html:32
+#: .\apps\plans\templates\plans\plan_detail.html:204
+msgid "Approve"
+msgstr "اعتماد"
+
+#: .\apps\plans\templates\plans\plan_detail.html:35
+#: .\apps\plans\templates\plans\plan_detail.html:226
+msgid "Reject"
+msgstr "رفض"
+
+#: .\apps\plans\templates\plans\plan_detail.html:48
+msgid "Year:"
+msgstr "السنة:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:49
+msgid "Formation Manager:"
+msgstr "مدير التشكيل:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:50
+msgid "Plan Organizer:"
+msgstr "منظم الاستمارة:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:59
+msgid "Endorsement Text:"
+msgstr "نص المصادقة:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:62
+msgid "Reference No:"
+msgstr "رقم الإشارة:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:65
+msgid "Endorsement Date:"
+msgstr "تاريخ المصادقة:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:68
+msgid "Submitted at:"
+msgstr "تاريخ التقديم:"
+
+#: .\apps\plans\templates\plans\plan_detail.html:71
+msgid "Approved at:"
+msgstr "تاريخ الاعتماد:"
+
+# Plan detail tabs
+#: .\apps\plans\templates\plans\plan_detail.html:80
+msgid "I. SWOT"
+msgstr "أولاً: SWOT"
+
+#: .\apps\plans\templates\plans\plan_detail.html:81
+msgid "II. Goals & Activities"
+msgstr "ثانياً: الأهداف والأنشطة"
+
+#: .\apps\plans\templates\plans\plan_detail.html:82
+msgid "III. Goal Summary"
+msgstr "ثالثاً: ملخص الأهداف"
+
+#: .\apps\plans\templates\plans\plan_detail.html:83
+msgid "IV. Timeline"
+msgstr "رابعاً: الجدول الزمني"
+
+#: .\apps\plans\templates\plans\plan_detail.html:84
+msgid "V. Risks"
+msgstr "خامساً: المخاطر"
+
+#: .\apps\plans\templates\plans\plan_detail.html:85
+msgid "VI. Recommendations"
+msgstr "سادساً: التوصيات"
+
+#: .\apps\plans\templates\plans\plan_detail.html:86
+#: .\apps\plans\templates\plans\plan_detail.html:164
+msgid "Workflow Log"
+msgstr "سجل سير العمل"
+
+#: .\apps\plans\templates\plans\plan_detail.html:93
+msgid "SWOT Analysis"
+msgstr "تحليل الوضع الحالي (SWOT)"
+
+#: .\apps\plans\templates\plans\plan_detail.html:108
+msgid "Goals & Activities"
+msgstr "الأهداف الرئيسية والأنشطة"
+
+#: .\apps\plans\templates\plans\plan_detail.html:111
+msgid "Add Goal"
+msgstr "إضافة هدف"
+
+#: .\apps\plans\templates\plans\plan_detail.html:118
+#: .\apps\plans\templates\plans\sections\goal_card.html:88
+msgid "No goals added yet."
+msgstr "لم تُضف أي أهداف بعد."
+
+#: .\apps\plans\templates\plans\plan_detail.html:137
+msgid "Risk Management"
+msgstr "إدارة المخاطر"
+
+#: .\apps\plans\templates\plans\plan_detail.html:140
+msgid "Add Risk"
+msgstr "إضافة مخاطرة"
+
+#: .\apps\plans\templates\plans\plan_detail.html:150
+msgid "Final Recommendations"
+msgstr "التوصيات النهائية"
+
+#: .\apps\plans\templates\plans\plan_detail.html:158
+msgid "No recommendations added yet."
+msgstr "لم تُضف توصيات بعد."
+
+#: .\apps\plans\templates\plans\plan_detail.html:168
+msgid "Performed By"
+msgstr "المنفذ"
+
+#: .\apps\plans\templates\plans\plan_detail.html:168
+msgid "From"
+msgstr "من"
+
+#: .\apps\plans\templates\plans\plan_detail.html:168
+msgid "To"
+msgstr "إلى"
+
+#: .\apps\plans\templates\plans\plan_detail.html:168
+msgid "Comment"
+msgstr "التعليق"
+
+#: .\apps\plans\templates\plans\plan_detail.html:180
+msgid "No workflow logs."
+msgstr "لا يوجد سجلات"
+
+#: .\apps\plans\templates\plans\plan_detail.html:194
+msgid "Approve Plan"
+msgstr "اعتماد الخطة"
+
+#: .\apps\plans\templates\plans\plan_detail.html:200
+msgid "Comment (optional)"
+msgstr "تعليق (اختياري)"
+
+#: .\apps\plans\templates\plans\plan_detail.html:216
+msgid "Reject Plan"
+msgstr "رفض الخطة"
+
+#: .\apps\plans\templates\plans\plan_detail.html:222
+msgid "Rejection Reason"
+msgstr "سبب الرفض"
+
+#: .\apps\plans\templates\plans\plan_list.html:3
+#: .\apps\plans\templates\plans\plan_list.html:6 .\templates\sidebar.html:26
+msgid "Annual Plans"
+msgstr "الخطط السنوية"
+
+# ---------------------------------------------------------------------------
+# Plans
+# ---------------------------------------------------------------------------
+#: .\apps\plans\templates\plans\plan_list.html:8
+msgid "New Plan"
+msgstr "خطة جديدة"
+
+#: .\apps\plans\templates\plans\plan_list.html:21
+msgid "All"
+msgstr "الكل"
+
+#: .\apps\plans\templates\plans\plan_list.html:29
+msgid "Filter"
+msgstr "فلتر"
+
+#: .\apps\plans\templates\plans\plan_list.html:41
+msgid "Manager"
+msgstr "المدير"
+
+#: .\apps\plans\templates\plans\plan_list.html:43
+msgid "Last Modified"
+msgstr "آخر تعديل"
+
+#: .\apps\plans\templates\plans\plan_list.html:66
+msgid "No plans found."
+msgstr "لا يوجد خطط"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:15
+msgid "Are you sure you want to delete this goal?"
+msgstr "هل تريد حذف هذا الهدف؟"
+
+# ---------------------------------------------------------------------------
+# Goal card / Activities
+# ---------------------------------------------------------------------------
+#: .\apps\plans\templates\plans\sections\goal_card.html:27
+msgid "Add Activity"
+msgstr "إضافة نشاط"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:36
+msgid "Activity"
+msgstr "النشاط"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:36
+msgid "Responsible Formation"
+msgstr "التشكيل المسؤول"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:37
+msgid "Start"
+msgstr "البداية"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:37
+msgid "End"
+msgstr "النهاية"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:37
+msgid "Duration"
+msgstr "المدة"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:38
+#, fuzzy, python-format
+#| msgid "Planned %"
+msgid "Planned %%"
+msgstr "مخطط%"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:38
+#, fuzzy, python-format
+#| msgid "Actual %"
+msgid "Actual %%"
+msgstr "منجز%"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:50
+msgid "days"
+msgstr "يوم"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:76
+msgid "Delete Activity?"
+msgstr "حذف النشاط؟"
+
+#: .\apps\plans\templates\plans\sections\goal_card.html:78
+msgid "Delete"
+msgstr "حذف"
+
+# ---------------------------------------------------------------------------
+# Language names
+# ---------------------------------------------------------------------------
+#: .\config\settings\base.py:90
+msgid "English"
+msgstr "الإنجليزية"
+
+#: .\config\settings\base.py:91
+msgid "Arabic / العربية"
+msgstr "العربية"
+
+#: .\templates\base.html:60
+msgid "Close"
+msgstr "إغلاق"
+
+#: .\templates\navbar.html:6
+msgid "Toggle Sidebar"
+msgstr "إظهار/إخفاء الشريط الجانبي"
+
+#: .\templates\navbar.html:60
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: .\templates\sidebar.html:9
+msgid "APS"
+msgstr "ن.خ.س"
+
+#: .\templates\sidebar.html:31
+msgid "Administration"
+msgstr "الإدارة"
+
+#: .\templates\sidebar.html:49
+msgid "Admin Panel"
+msgstr "لوحة الإدارة"

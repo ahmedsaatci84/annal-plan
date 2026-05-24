@@ -1,0 +1,125 @@
+Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\dashboard\views.py", line 12, in dashboard_index
+    profile = request.user.profile
+              ^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+    ...<2 lines>...
+    )
+django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+"GET /dashboard/ HTTP/1.1" 500 96744
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2968
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\dashboard\views.py", line 12, in dashboard_index
+    profile = request.user.profile
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+    ...<2 lines>...
+    )
+django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+"GET /dashboard/ HTTP/1.1" 500 88851
+Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\dashboard\views.py", line 12, in dashboard_index
+    profile = request.user.profile
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+    ...<2 lines>...
+    )
+django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+"GET /dashboard/ HTTP/1.1" 500 88535
+Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\dashboard\views.py", line 12, in dashboard_index
+    profile = request.user.profile
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+    ...<2 lines>...
+    )
+django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+"GET /dashboard/ HTTP/1.1" 500 88535
+Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\dashboard\views.py", line 12, in dashboard_index
+    profile = request.user.profile
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "C:\Users\Ahmed Saatci\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+    ...<2 lines>...
+    )
+django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+"GET /dashboard/ HTTP/1.1" 500 88535
+Too Many Requests: /auth/login/
+"POST /auth/login/?next=/ar/dashboard/ HTTP/1.1" 429 64
+Too Many Requests: /auth/login/
+"POST /auth/login/?next=/ar/dashboard/ HTTP/1.1" 429 64
+Too Many Requests: /auth/login/
+"POST /auth/login/?next=/ar/dashboard/ HTTP/1.1" 429 64
+Too Many Requests: /auth/login/
+"POST /auth/login/?next=/dashboard/ HTTP/1.1" 429 64
+Too Many Requests: /auth/login/
+"POST /auth/login/?next=/dashboard/ HTTP/1.1" 429 64
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Too Many Requests: /auth/login/
+"POST /auth/login/?next=/dashboard/ HTTP/1.1" 429 64
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656

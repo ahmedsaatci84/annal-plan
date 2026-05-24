@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Formation(models.Model):
@@ -9,27 +10,27 @@ class Formation(models.Model):
     LEVEL_UNIT = 'UNIT'
 
     LEVEL_CHOICES = [
-        (LEVEL_COMPANY, 'شركة'),
-        (LEVEL_BOARD, 'هيأة'),
-        (LEVEL_DIVISION, 'قسم'),
-        (LEVEL_SECTION, 'شعبة'),
-        (LEVEL_UNIT, 'وحدة'),
+        (LEVEL_COMPANY, _('Company')),
+        (LEVEL_BOARD, _('Board')),
+        (LEVEL_DIVISION, _('Division')),
+        (LEVEL_SECTION, _('Section')),
+        (LEVEL_UNIT, _('Unit')),
     ]
 
-    code = models.CharField(max_length=20, unique=True, verbose_name='الرمز')
-    name_ar = models.CharField(max_length=200, verbose_name='الاسم بالعربية')
+    code = models.CharField(max_length=20, unique=True, verbose_name=_('Code'))
+    name_ar = models.CharField(max_length=200, verbose_name=_('name in arabic'))
     parent = models.ForeignKey(
         'self', on_delete=models.SET_NULL, null=True, blank=True,
-        related_name='children', verbose_name='التشكيل الأعلى'
+        related_name='children', verbose_name=_('parent formation')
     )
-    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, verbose_name='المستوى')
-    is_active = models.BooleanField(default=True, verbose_name='نشط')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاريخ الإنشاء')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='تاريخ التعديل')
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, verbose_name=_('Level'))
+    is_active = models.BooleanField(default=True, verbose_name=_('is active'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
     class Meta:
-        verbose_name = 'تشكيل'
-        verbose_name_plural = 'التشكيلات'
+        verbose_name = _('formation')
+        verbose_name_plural = _('formations plural')
         ordering = ['level', 'name_ar']
         indexes = [
             models.Index(fields=['level']),

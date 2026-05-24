@@ -1,13 +1,14 @@
 {% extends "base.html" %}
-{% block title %}لم يتم تحديد التشكيل{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Formation Not Assigned" %}{% endblock %}
 {% block content %}
 <div class="row justify-content-center mt-5">
     <div class="col-md-6 text-center">
         <div class="alert alert-warning shadow">
             <i class="fas fa-exclamation-triangle fa-3x mb-3 text-warning"></i>
-            <h4>لم يتم تحديد التشكيل</h4>
-            <p>لم يتم ربط حسابك بأي تشكيل بعد. يرجى التواصل مع مسؤول النظام لتحديد التشكيل الخاص بك.</p>
-            <a href="{% url 'accounts:login' %}" class="btn btn-outline-warning mt-2">العودة</a>
+            <h4>{% trans "Formation Not Assigned" %}</h4>
+            <p>{% trans "Your account is not linked to any formation yet. Please contact the system administrator to assign your formation." %}</p>
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-warning mt-2">{% trans "Back" %}</a>
         </div>
     </div>
 </div>

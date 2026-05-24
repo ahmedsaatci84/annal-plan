@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load rtl_extras static %}
+{% load i18n rtl_extras static %}
 {% block title %}{{ plan }}{% endblock %}
 
 {% block content %}
@@ -7,32 +7,32 @@
 <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
     <div>
         <h4><i class="fas fa-file-alt me-2 text-primary"></i>{{ plan }}</h4>
-        <span class="badge bg-{{ plan.status|status_badge }} fs-6">{{ plan.status|status_label }}</span>
+        <span class="badge badge-{{ plan.status|status_badge }} fs-6">{{ plan.status|status_label }}</span>
     </div>
     <div class="d-flex gap-2 flex-wrap">
         {% if can_edit %}
         <a href="{% url 'plans:edit' plan.pk %}" class="btn btn-outline-secondary btn-sm">
-            <i class="fas fa-edit me-1"></i>تعديل الرأس
+            <i class="fas fa-edit me-1"></i>{% trans "Edit Header" %}
         </a>
         {% endif %}
         <a href="{% url 'plans:export_pdf' plan.pk %}" class="btn btn-outline-dark btn-sm">
-            <i class="fas fa-file-pdf me-1"></i>تصدير PDF
+            <i class="fas fa-file-pdf me-1"></i>{% trans "Export PDF" %}
         </a>
         {% if can_edit and plan.status == 'DRAFT' %}
         <form method="post" action="{% url 'plans:submit' plan.pk %}" class="d-inline">
             {% csrf_token %}
             <button type="submit" class="btn btn-success btn-sm"
-                    onclick="return confirm('هل تريد تقديم الخطة للمراجعة؟')">
-                <i class="fas fa-paper-plane me-1"></i>تقديم للمراجعة
+                    onclick="return confirm('{% trans "Are you sure you want to submit the plan for review?" %}')">  
+                <i class="fas fa-paper-plane me-1"></i>{% trans "Submit for Review" %}
             </button>
         </form>
         {% endif %}
         {% if can_review and plan.status in 'SUBMITTED,UNDER_REVIEW' %}
         <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#approveModal">
-            <i class="fas fa-check me-1"></i>اعتماد
+            <i class="fas fa-check me-1"></i>{% trans "Approve" %}
         </button>
         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal">
-            <i class="fas fa-times me-1"></i>رفض
+            <i class="fas fa-times me-1"></i>{% trans "Reject" %}
         </button>
         {% endif %}
     </div>
@@ -44,10 +44,10 @@
         <div class="card h-100">
             <div class="card-body">
                 <dl class="row mb-0">
-                    <dt class="col-sm-5">التشكيل:</dt><dd class="col-sm-7">{{ plan.formation.name_ar }}</dd>
-                    <dt class="col-sm-5">السنة:</dt><dd class="col-sm-7">{{ plan.plan_year }}</dd>
-                    <dt class="col-sm-5">مدير التشكيل:</dt><dd class="col-sm-7">{{ plan.manager_name }}</dd>
-                    <dt class="col-sm-5">منظم الاستمارة:</dt><dd class="col-sm-7">{{ plan.organizer_name }}</dd>
+                    <dt class="col-sm-5">{% trans "Formation:" %}</dt><dd class="col-sm-7">{{ plan.formation.name_ar }}</dd>
+                    <dt class="col-sm-5">{% trans "Year:" %}</dt><dd class="col-sm-7">{{ plan.plan_year }}</dd>
+                    <dt class="col-sm-5">{% trans "Formation Manager:" %}</dt><dd class="col-sm-7">{{ plan.manager_name }}</dd>
+                    <dt class="col-sm-5">{% trans "Plan Organizer:" %}</dt><dd class="col-sm-7">{{ plan.organizer_name }}</dd>
                 </dl>
             </div>
         </div>
@@ -56,19 +56,19 @@
         <div class="card h-100">
             <div class="card-body">
                 {% if plan.endorsement_text %}
-                <p class="mb-1"><strong>نص المصادقة:</strong> {{ plan.endorsement_text }}</p>
+                <p class="mb-1"><strong>{% trans "Endorsement Text:" %}</strong> {{ plan.endorsement_text }}</p>
                 {% endif %}
                 {% if plan.endorsement_ref_no %}
-                <p class="mb-1"><strong>رقم الإشارة:</strong> {{ plan.endorsement_ref_no }}</p>
+                <p class="mb-1"><strong>{% trans "Reference No:" %}</strong> {{ plan.endorsement_ref_no }}</p>
                 {% endif %}
                 {% if plan.endorsement_date %}
-                <p class="mb-1"><strong>تاريخ المصادقة:</strong> {{ plan.endorsement_date }}</p>
+                <p class="mb-1"><strong>{% trans "Endorsement Date:" %}</strong> {{ plan.endorsement_date }}</p>
                 {% endif %}
                 {% if plan.submitted_at %}
-                <p class="mb-1"><small class="text-muted">تاريخ التقديم: {{ plan.submitted_at|date:"Y/m/d H:i" }}</small></p>
+                <p class="mb-1"><small class="text-muted">{% trans "Submitted at:" %} {{ plan.submitted_at|date:"Y/m/d H:i" }}</small></p>
                 {% endif %}
                 {% if plan.approved_at %}
-                <p class="mb-1"><small class="text-success">تاريخ الاعتماد: {{ plan.approved_at|date:"Y/m/d H:i" }}</small></p>
+                <p class="mb-1"><small class="text-success">{% trans "Approved at:" %} {{ plan.approved_at|date:"Y/m/d H:i" }}</small></p>
                 {% endif %}
             </div>
         </div>
@@ -76,24 +76,24 @@
 </div>
 
 <!-- Tabs -->
-<ul class="nav nav-tabs mb-3" id="planTabs">
-    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-swot">أولاً: SWOT</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-goals">ثانياً: الأهداف والأنشطة</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-summary">ثالثاً: ملخص الأهداف</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-gantt">رابعاً: الجدول الزمني</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-risks">خامساً: المخاطر</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-recs">سادساً: التوصيات</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-log">سجل سير العمل</a></li>
+<ul class="nav nav-tabs" id="planTabs">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-swot">{% trans "I. SWOT" %}</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-goals">{% trans "II. Goals & Activities" %}</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-summary">{% trans "III. Goal Summary" %}</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-gantt">{% trans "IV. Timeline" %}</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-risks">{% trans "V. Risks" %}</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-recs">{% trans "VI. Recommendations" %}</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-log">{% trans "Workflow Log" %}</a></li>
 </ul>
 
 <div class="tab-content">
     <!-- SWOT -->
     <div class="tab-pane fade show active" id="tab-swot">
         <div class="d-flex justify-content-between mb-2">
-            <h6>تحليل الوضع الحالي (SWOT)</h6>
+            <h6>{% trans "SWOT Analysis" %}</h6>
             {% if can_edit %}
             <a href="{% url 'plans:swot_edit' plan.pk %}" class="btn btn-sm btn-outline-primary">
-                <i class="fas fa-edit me-1"></i>تعديل
+                <i class="fas fa-edit me-1"></i>{% trans "Edit" %}
             </a>
             {% endif %}
         </div>
@@ -105,17 +105,17 @@
     <!-- Goals -->
     <div class="tab-pane fade" id="tab-goals">
         <div class="d-flex justify-content-between mb-2">
-            <h6>الأهداف الرئيسية والأنشطة</h6>
+            <h6>{% trans "Goals & Activities" %}</h6>
             {% if can_edit %}
             <a href="{% url 'plans:goal_create' plan.pk %}" class="btn btn-sm btn-primary">
-                <i class="fas fa-plus me-1"></i>إضافة هدف
+                <i class="fas fa-plus me-1"></i>{% trans "Add Goal" %}
             </a>
             {% endif %}
         </div>
         {% for goal in goals %}
         {% include "plans/sections/goal_card.html" with goal=goal plan=plan can_edit=can_edit %}
         {% empty %}
-        <div class="alert alert-info">لم تُضف أي أهداف بعد.</div>
+        <div class="alert alert-info">{% trans "No goals added yet." %}</div>
         {% endfor %}
     </div>
 
@@ -134,10 +134,10 @@
     <!-- Risks -->
     <div class="tab-pane fade" id="tab-risks">
         <div class="d-flex justify-content-between mb-2">
-            <h6>إدارة المخاطر</h6>
+            <h6>{% trans "Risk Management" %}</h6>
             {% if can_edit %}
             <a href="{% url 'plans:risk_create' plan.pk %}" class="btn btn-sm btn-primary">
-                <i class="fas fa-plus me-1"></i>إضافة مخاطرة
+                <i class="fas fa-plus me-1"></i>{% trans "Add Risk" %}
             </a>
             {% endif %}
         </div>
@@ -147,37 +147,37 @@
     <!-- Recommendations -->
     <div class="tab-pane fade" id="tab-recs">
         <div class="d-flex justify-content-between mb-2">
-            <h6>التوصيات النهائية</h6>
+            <h6>{% trans "Final Recommendations" %}</h6>
             {% if can_edit %}
-            <a href="{% url 'plans:recommendations_edit' plan.pk %}" class="btn btn-sm btn-outline-primary">تعديل</a>
+            <a href="{% url 'plans:recommendations_edit' plan.pk %}" class="btn btn-sm btn-outline-primary">{% trans "Edit" %}</a>
             {% endif %}
         </div>
         {% if plan.recommendations %}
         <div class="card"><div class="card-body">{{ plan.recommendations|linebreaks }}</div></div>
         {% else %}
-        <div class="alert alert-info">لم تُضف توصيات بعد.</div>
+        <div class="alert alert-info">{% trans "No recommendations added yet." %}</div>
         {% endif %}
     </div>
 
     <!-- Workflow Log -->
     <div class="tab-pane fade" id="tab-log">
-        <h6 class="mb-3">سجل سير العمل</h6>
+        <h6 class="mb-3">{% trans "Workflow Log" %}</h6>
         <div class="table-responsive">
             <table class="table table-sm table-bordered">
-                <thead class="table-secondary">
-                    <tr><th>التاريخ</th><th>المنفذ</th><th>من</th><th>إلى</th><th>التعليق</th></tr>
+                <thead>
+                    <tr><th>{% trans "Date" %}</th><th>{% trans "Performed By" %}</th><th>{% trans "From" %}</th><th>{% trans "To" %}</th><th>{% trans "Comment" %}</th></tr>
                 </thead>
                 <tbody>
                     {% for log in workflow_logs %}
                     <tr>
                         <td class="small">{{ log.created_at|date:"Y/m/d H:i" }}</td>
                         <td>{{ log.performed_by.get_full_name|default:log.performed_by.username }}</td>
-                        <td><span class="badge bg-{{ log.from_status|status_badge }}">{{ log.from_status|status_label }}</span></td>
-                        <td><span class="badge bg-{{ log.to_status|status_badge }}">{{ log.to_status|status_label }}</span></td>
+                        <td><span class="badge badge-{{ log.from_status|status_badge }}">{{ log.from_status|status_label }}</span></td>
+                        <td><span class="badge badge-{{ log.to_status|status_badge }}">{{ log.to_status|status_label }}</span></td>
                         <td>{{ log.comment|default:"—" }}</td>
                     </tr>
                     {% empty %}
-                    <tr><td colspan="5" class="text-center text-muted">لا يوجد سجلات</td></tr>
+                    <tr><td colspan="5" class="text-center text-muted">{% trans "No workflow logs." %}</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -191,18 +191,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title">اعتماد الخطة</h5>
+                <h5 class="modal-title">{% trans "Approve Plan" %}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form method="post" action="{% url 'plans:approve' plan.pk %}">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <label class="form-label">تعليق (اختياري)</label>
+                    <label class="form-label">{% trans "Comment (optional)" %}</label>
                     <textarea name="comment" class="form-control" rows="3"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">اعتماد</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-success">{% trans "Approve" %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
                 </div>
             </form>
         </div>
@@ -213,18 +213,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title">رفض الخطة</h5>
+                <h5 class="modal-title">{% trans "Reject Plan" %}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form method="post" action="{% url 'plans:reject' plan.pk %}">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <label class="form-label">سبب الرفض <span class="text-danger">*</span></label>
+                    <label class="form-label">{% trans "Rejection Reason" %} <span class="text-danger">*</span></label>
                     <textarea name="comment" class="form-control" rows="3" required></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">رفض</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-danger">{% trans "Reject" %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
                 </div>
             </form>
         </div>
