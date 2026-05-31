@@ -52,8 +52,8 @@ def _manager_dashboard(request, year):
     if not formation:
         return render(request, 'dashboard/no_formation.html', {})
 
-    descendants = formation.get_descendants()
-    ids = [formation.id] + [d.id for d in descendants]
+    descendants = []
+    ids = [formation.id]
     plans = AnnualPlan.objects.filter(
         plan_year=year, formation_id__in=ids
     ).select_related('formation')

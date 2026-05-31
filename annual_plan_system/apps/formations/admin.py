@@ -1,5 +1,13 @@
 from django.contrib import admin
-from .models import Formation
+from .models import Formation, ParentFormation
+
+
+@admin.register(ParentFormation)
+class ParentFormationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'description')
+    ordering = ('name',)
 
 
 class FormationScopedAdminMixin:
@@ -33,7 +41,7 @@ class FormationScopedAdminMixin:
 
 @admin.register(Formation)
 class FormationAdmin(FormationScopedAdminMixin, admin.ModelAdmin):
-    list_display = ('code', 'name_ar', 'level', 'parent', 'is_active')
-    list_filter = ('level', 'is_active')
-    search_fields = ('name_ar', 'code')
+    list_display = ('name_ar', 'level', 'parent_formation', 'is_active')
+    list_filter = ('level', 'is_active', 'parent_formation')
+    search_fields = ('name_ar',)
     ordering = ('level', 'name_ar')

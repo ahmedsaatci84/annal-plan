@@ -2,6 +2,22 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class ParentFormation(models.Model):
+    name = models.CharField(max_length=200, verbose_name=_('Name'))
+    description = models.TextField(blank=True, verbose_name=_('Description'))
+    is_active = models.BooleanField(default=True, verbose_name=_('Is Active'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))
+
+    class Meta:
+        verbose_name = _('Parent Formation')
+        verbose_name_plural = _('Parent Formations')
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Formation(models.Model):
     LEVEL_COMPANY = 'COMPANY'
     LEVEL_BOARD = 'BOARD'
@@ -11,17 +27,16 @@ class Formation(models.Model):
 
     LEVEL_CHOICES = [
         (LEVEL_COMPANY, _('Company')),
-        (LEVEL_BOARD, _('Board')),
-        (LEVEL_DIVISION, _('Division')),
+        (LEVEL_BOARD, _('Division')),
+        (LEVEL_DIVISION, _('Department')),
         (LEVEL_SECTION, _('Section')),
         (LEVEL_UNIT, _('Unit')),
     ]
 
-    code = models.CharField(max_length=20, unique=True, verbose_name=_('Code'))
     name_ar = models.CharField(max_length=200, verbose_name=_('name in arabic'))
-    parent = models.ForeignKey(
-        'self', on_delete=models.SET_NULL, null=True, blank=True,
-        related_name='children', verbose_name=_('parent formation')
+    parent_formation = models.ForeignKey(
+        ParentFormation, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='formations', verbose_name=_('Parent Formation Category')
     )
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, verbose_name=_('Level'))
     is_active = models.BooleanField(default=True, verbose_name=_('is active'))
@@ -37,19 +52,6 @@ class Formation(models.Model):
         ]
 
     def __str__(self):
-        return f'{self.name_ar} ({self.code})'
+        return self.name_ar
 
-    def get_ancestors(self):
-        ancestors = []
-        current = self.parent
-        while current:
-            ancestors.insert(0, current)
-            current = current.parent
-        return ancestors
 
-    def get_descendants(self):
-        result = []
-        for child in self.children.filter(is_active=True):
-            result.append(child)
-            result.extend(child.get_descendants())
-        return result

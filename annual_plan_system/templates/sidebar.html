@@ -30,7 +30,14 @@
                 {% if user.profile.role == 'ADMIN' %}
                 <li class="sidebar-section-title">{% trans "Administration" %}</li>
                 <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'formations' %}active{% endif %}"
+                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'formations' and 'parent' in request.path %}active{% endif %}"
+                       href="{% url 'formations:parent_list' %}">
+                        <i class="fas fa-layer-group sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "Parent Formations" %}</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'formations' and 'parent' not in request.path %}active{% endif %}"
                        href="{% url 'formations:list' %}">
                         <i class="fas fa-sitemap sidebar-icon"></i>
                         <span class="sidebar-label">{% trans "Formations" %}</span>

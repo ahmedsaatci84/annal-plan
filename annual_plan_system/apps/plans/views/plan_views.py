@@ -17,8 +17,7 @@ def plan_list(request):
         plans = AnnualPlan.objects.select_related('formation', 'created_by').order_by('-plan_year')
     elif profile.is_manager():
         formation = profile.formation
-        descendants = formation.get_descendants() if formation else []
-        ids = [formation.id] + [d.id for d in descendants] if formation else []
+        ids = [formation.id] if formation else []
         plans = AnnualPlan.objects.filter(formation_id__in=ids).select_related('formation')
     else:
         plans = AnnualPlan.objects.filter(
@@ -173,6 +172,6 @@ def _check_plan_access(user, plan):
     if profile.formation is None:
         raise PermissionDenied
     formation = profile.formation
-    allowed_ids = [formation.id] + [d.id for d in formation.get_descendants()]
+    allowed_ids = [formation.id] if formation else []
     if plan.formation_id not in allowed_ids:
         raise PermissionDenied

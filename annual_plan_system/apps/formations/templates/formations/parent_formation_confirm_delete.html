@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete Parent Formation" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white d-flex align-items-center">
+                <i class="fas fa-triangle-exclamation me-2"></i>
+                <h5 class="mb-0">{% trans "Confirm Delete" %}</h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="mb-1">{% trans "Are you sure you want to delete this Parent Formation?" %}</p>
+                <p class="fw-bold fs-5">{{ object.name }}</p>
+                {% if object.description %}
+                    <p class="text-muted small">{{ object.description|truncatechars:120 }}</p>
+                {% endif %}
+
+                {% with count=object.formations.count %}
+                {% if count %}
+                <div class="alert alert-warning d-flex align-items-center gap-2">
+                    <i class="fas fa-circle-info"></i>
+                    {% blocktrans with n=count %}
+                        This will unlink <strong>{{ n }}</strong> formation(s) from this parent category.
+                    {% endblocktrans %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                <form method="post" class="d-flex gap-2 mt-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i>{% trans "Yes, Delete" %}
+                    </button>
+                    <a href="{% url 'formations:parent_list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>{% trans "Cancel" %}
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -453,12 +453,12 @@ msgid "Company"
 msgstr "شركة"
 
 #: .\apps\formations\models.py:14
-msgid "Board"
-msgstr "هيأة"
-
-#: .\apps\formations\models.py:15
 msgid "Division"
 msgstr "قسم"
+
+#: .\apps\formations\models.py:15
+msgid "Department"
+msgstr "دائرة"
 
 #: .\apps\formations\models.py:16
 msgid "Section"
@@ -514,6 +514,22 @@ msgstr "إدارة التشكيلات"
 #: .\apps\formations\templates\formations\formation_list.html:8
 msgid "New Formation"
 msgstr "تشكيل جديد"
+
+#: .\apps\formations\views.py
+msgid "Create Formation"
+msgstr "إنشاء تشكيل"
+
+#: .\apps\formations\views.py
+msgid "Edit Formation"
+msgstr "تعديل تشكيل"
+
+#: .\apps\formations\views.py
+msgid "Formation created successfully."
+msgstr "تم إنشاء التشكيل بنجاح."
+
+#: .\apps\formations\views.py
+msgid "Formation updated successfully."
+msgstr "تم تحديث التشكيل بنجاح."
 
 #: .\apps\formations\templates\formations\formation_list.html:15
 msgid "Name"

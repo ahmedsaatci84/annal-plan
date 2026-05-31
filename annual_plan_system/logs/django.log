@@ -123,3 +123,5 @@ Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 3656
 Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656

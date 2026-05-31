@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete Formation" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white d-flex align-items-center">
+                <i class="fas fa-triangle-exclamation me-2"></i>
+                <h5 class="mb-0">{% trans "Confirm Delete" %}</h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="mb-1">{% trans "Are you sure you want to delete this Formation?" %}</p>
+                <p class="fw-bold fs-5">{{ formation.name_ar }}</p>
+                <p class="text-muted small">{{ formation.get_level_display }}</p>
+
+                <div class="alert alert-warning d-flex align-items-center gap-2">
+                    <i class="fas fa-circle-info"></i>
+                    {% trans "This action cannot be undone. All plans linked to this formation may be affected." %}
+                </div>
+
+                <form method="post" class="d-flex gap-2 mt-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i>{% trans "Yes, Delete" %}
+                    </button>
+                    <a href="{% url 'formations:list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>{% trans "Cancel" %}
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -35,6 +35,6 @@ def export_plan_pdf(request, plan):
     log_action(request.user, 'EXPORT', 'AnnualPlan', plan, ip_address=ip)
 
     response = HttpResponse(pdf_file, content_type='application/pdf')
-    filename = f'annual_plan_{plan.formation.code}_{plan.plan_year}.pdf'
+    filename = f'annual_plan_{plan.formation.name_ar}_{plan.plan_year}.pdf'
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
