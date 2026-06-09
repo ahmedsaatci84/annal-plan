@@ -75,6 +75,9 @@ class UserCreateView(AdminRequiredMixin, CreateView):
         profile_form = UserProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
+            # The post_save signal may have already created a profile; get or create to avoid duplicate key error
+            existing_profile, _ = UserProfile.objects.get_or_create(user=user)
+            profile_form.instance = existing_profile
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()

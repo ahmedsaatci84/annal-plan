@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for plan in plans %}
+                {% for plan, can_edit, can_review in plan_data %}
                 <tr>
                     <td>{{ plan.formation.name_ar }}</td>
                     <td>{{ plan.plan_year }}</td>
@@ -57,9 +57,97 @@
                     </td>
                     <td class="small text-muted">{{ plan.updated_at|date:"Y/m/d" }}</td>
                     <td>
-                        <a href="{% url 'plans:detail' plan.pk %}" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-eye me-1"></i>{% trans "View" %}
-                        </a>
+                        <div class="d-flex flex-wrap gap-1">
+                            <!-- View -->
+                            <a href="{% url 'plans:detail' plan.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <!-- Edit (DRAFT / REJECTED / APPROVED) -->
+                            {% if can_edit %}
+                            <a href="{% url 'plans:edit' plan.pk %}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {% endif %}
+                            <!-- Change Status (admin only) -->
+                            {% if is_admin %}
+                            <button type="button" class="btn btn-sm btn-outline-dark"
+                                    title="{% trans 'Change Status' %}"
+                                    data-bs-toggle="modal" data-bs-target="#changeStatusModal"
+                                    data-action="{% url 'plans:change_status' plan.pk %}"
+                                    data-current-status="{{ plan.status }}">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                            {% endif %}
+                            <!-- Delete (admin only) -->
+                            {% if is_admin %}
+                            <form method="post" action="{% url 'plans:delete' plan.pk %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        title="{% trans 'Delete' %}"
+                                        onclick="return confirm('{% trans "Are you sure you want to delete this plan?" %}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                            <!-- Submit (DRAFT → SUBMITTED) -->
+                            {% if can_edit and plan.status == 'DRAFT' %}
+                            <form method="post" action="{% url 'plans:submit' plan.pk %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-success"
+                                        title="{% trans 'Submit for Review' %}"
+                                        onclick="return confirm('{% trans "Submit this plan for review?" %}')">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                            <!-- Start Review (SUBMITTED → UNDER_REVIEW) -->
+                            {% if can_review and plan.status == 'SUBMITTED' %}
+                            <form method="post" action="{% url 'plans:start_review' plan.pk %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-info"
+                                        title="{% trans 'Start Review' %}"
+                                        onclick="return confirm('{% trans "Start reviewing this plan?" %}')">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                            <!-- Approve (SUBMITTED or UNDER_REVIEW) -->
+                            {% if can_review and plan.status == 'SUBMITTED' or can_review and plan.status == 'UNDER_REVIEW' %}
+                            <button type="button" class="btn btn-sm btn-success"
+                                    title="{% trans 'Approve' %}"
+                                    data-bs-toggle="modal" data-bs-target="#approveModal"
+                                    data-action="{% url 'plans:approve' plan.pk %}">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <!-- Reject (SUBMITTED or UNDER_REVIEW) -->
+                            <button type="button" class="btn btn-sm btn-danger"
+                                    title="{% trans 'Reject' %}"
+                                    data-bs-toggle="modal" data-bs-target="#rejectModal"
+                                    data-action="{% url 'plans:reject' plan.pk %}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            {% endif %}
+                            <!-- Reopen (REJECTED → DRAFT) -->
+                            {% if can_edit and plan.status == 'REJECTED' %}
+                            <form method="post" action="{% url 'plans:reopen' plan.pk %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-warning"
+                                        title="{% trans 'Reopen to Draft' %}"
+                                        onclick="return confirm('{% trans "Reopen this plan for editing?" %}')">
+                                    <i class="fas fa-redo"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                            <!-- Archive (APPROVED → ARCHIVED, admin only) -->
+                            {% if is_admin and plan.status == 'APPROVED' %}
+                            <button type="button" class="btn btn-sm btn-secondary"
+                                    title="{% trans 'Archive' %}"
+                                    data-bs-toggle="modal" data-bs-target="#archiveModal"
+                                    data-action="{% url 'plans:archive' plan.pk %}">
+                                <i class="fas fa-archive"></i>
+                            </button>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
                 {% empty %}
@@ -69,4 +157,238 @@
         </table>
     </div>
 </div>
+
+<!-- Shared Change Status Modal -->
+{% if is_admin %}
+<div class="modal fade" id="changeStatusModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">{% trans "Change Plan Status" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="changeStatusForm">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'plans:list' %}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">{% trans "Status" %}</label>
+                        <select name="status" class="form-select" id="changeStatusSelect">
+                            {% for val, label in status_choices %}
+                            <option value="{{ val }}" data-label="{{ label }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="badge bg-secondary" id="changeStatusRiskBadge">{% trans "Normal" %}</span>
+                        <small class="text-muted" id="changeStatusRiskText">{% trans "No special risk detected." %}</small>
+                    </div>
+                    <div class="alert alert-light small" id="changeStatusHint" role="status"></div>
+                    <div>
+                        <label class="form-label">{% trans "Comment (optional)" %}</label>
+                        <textarea name="comment" class="form-control" id="changeStatusComment" rows="3"></textarea>
+                        <small class="text-muted" id="changeStatusCommentNote">{% trans "A comment is required when changing the status to Rejected." %}</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark">{% trans "Save" %}</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Shared Approve Modal -->
+<div class="modal fade" id="approveModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">{% trans "Approve Plan" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="approveForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label class="form-label">{% trans "Comment (optional)" %}</label>
+                    <textarea name="comment" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">{% trans "Approve" %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Shared Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">{% trans "Reject Plan" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="rejectForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label class="form-label">{% trans "Rejection Reason" %} <span class="text-danger">*</span></label>
+                    <textarea name="comment" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">{% trans "Reject" %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Shared Archive Modal -->
+{% if is_admin %}
+<div class="modal fade" id="archiveModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary text-white">
+                <h5 class="modal-title">{% trans "Archive Plan" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="archiveForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p class="text-muted">{% trans "This will archive the approved plan. It will no longer be editable." %}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary">{% trans "Archive" %}</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
+
+{% block extra_js %}
+<script>
+// Wire the shared modals to the correct form action from the triggering button
+['approveModal', 'rejectModal', 'archiveModal'].forEach(function(modalId) {
+    var el = document.getElementById(modalId);
+    if (!el) return;
+    el.addEventListener('show.bs.modal', function(event) {
+        var btn = event.relatedTarget;
+        var action = btn.getAttribute('data-action');
+        el.querySelector('form').setAttribute('action', action);
+    });
+});
+
+var changeStatusModal = document.getElementById('changeStatusModal');
+if (changeStatusModal) {
+    var currentPlanStatus = '';
+    var hintEl = document.getElementById('changeStatusHint');
+    var commentInput = document.getElementById('changeStatusComment');
+    var commentNote = document.getElementById('changeStatusCommentNote');
+    var riskBadge = document.getElementById('changeStatusRiskBadge');
+    var riskText = document.getElementById('changeStatusRiskText');
+    var statusHints = {
+        DRAFT: '{% trans "Move to Draft to unlock full editing." %}',
+        SUBMITTED: '{% trans "Submitted plans are waiting to be reviewed." %}',
+        UNDER_REVIEW: '{% trans "Under Review indicates active reviewer processing." %}',
+        APPROVED: '{% trans "Approved is a locked and finalized plan state." %}',
+        REJECTED: '{% trans "Rejected requires a clear reason for correction." %}',
+        ARCHIVED: '{% trans "Archived keeps the plan for record and closes workflow." %}'
+    };
+
+    function requiresComment(currentStatus, targetStatus) {
+        return targetStatus === 'REJECTED' || (
+            currentStatus === 'APPROVED' &&
+            targetStatus !== 'APPROVED' &&
+            targetStatus !== 'ARCHIVED'
+        );
+    }
+
+    function resolveRisk(currentStatus, targetStatus) {
+        if (currentStatus === targetStatus) {
+            return {
+                level: 'info',
+                label: '{% trans "No Change" %}',
+                text: '{% trans "Selected status is the same as current status." %}'
+            };
+        }
+        if (currentStatus === 'APPROVED' && targetStatus !== 'APPROVED' && targetStatus !== 'ARCHIVED') {
+            return {
+                level: 'danger',
+                label: '{% trans "Critical" %}',
+                text: '{% trans "Rollback from approved affects governance and needs a clear reason." %}'
+            };
+        }
+        if (targetStatus === 'REJECTED') {
+            return {
+                level: 'warning',
+                label: '{% trans "Caution" %}',
+                text: '{% trans "Rejection returns the plan for correction and requires reason." %}'
+            };
+        }
+        if (targetStatus === 'ARCHIVED') {
+            return {
+                level: 'secondary',
+                label: '{% trans "Record" %}',
+                text: '{% trans "Archive keeps the plan closed for records." %}'
+            };
+        }
+        return {
+            level: 'success',
+            label: '{% trans "Normal" %}',
+            text: '{% trans "Standard workflow transition." %}'
+        };
+    }
+
+    function updateListChangeStatusHint() {
+        var statusSelect = document.getElementById('changeStatusSelect');
+        if (!statusSelect) return;
+        var targetStatus = statusSelect.value;
+        var risk = resolveRisk(currentPlanStatus, targetStatus);
+        var hint = statusHints[targetStatus] || '{% trans "Select a target status to continue." %}';
+        if (requiresComment(currentPlanStatus, targetStatus)) {
+            hint += ' {% trans "Comment is mandatory for this transition." %}';
+        }
+        if (hintEl) {
+            hintEl.textContent = hint;
+            hintEl.className = 'alert small alert-' + (risk.level === 'danger' ? 'danger' : risk.level === 'warning' ? 'warning' : risk.level === 'info' ? 'info' : risk.level === 'secondary' ? 'secondary' : 'success');
+        }
+        if (riskBadge) {
+            riskBadge.textContent = risk.label;
+            riskBadge.className = 'badge bg-' + (risk.level === 'danger' ? 'danger' : risk.level === 'warning' ? 'warning text-dark' : risk.level === 'info' ? 'info text-dark' : risk.level === 'secondary' ? 'secondary' : 'success');
+        }
+        if (riskText) {
+            riskText.textContent = risk.text;
+        }
+        if (commentInput) commentInput.required = requiresComment(currentPlanStatus, targetStatus);
+        if (commentNote) {
+            commentNote.textContent = requiresComment(currentPlanStatus, targetStatus)
+                ? '{% trans "Comment is required for this transition." %}'
+                : '{% trans "Comment is optional for this transition." %}';
+        }
+    }
+
+    changeStatusModal.addEventListener('show.bs.modal', function(event) {
+        var btn = event.relatedTarget;
+        var action = btn.getAttribute('data-action');
+        currentPlanStatus = btn.getAttribute('data-current-status') || '';
+        changeStatusModal.querySelector('form').setAttribute('action', action);
+        document.getElementById('changeStatusSelect').value = currentPlanStatus;
+        document.getElementById('changeStatusComment').value = '';
+        updateListChangeStatusHint();
+    });
+
+    var listStatusSelect = document.getElementById('changeStatusSelect');
+    if (listStatusSelect) {
+        listStatusSelect.addEventListener('change', updateListChangeStatusHint);
+    }
+}
+</script>
+{% endblock %}
+

@@ -39,9 +39,15 @@
 
     /* Topbar */
     --topbar-height:       58px;
-    --topbar-bg:           #ffffff;
-    --topbar-border:       #e2e8f0;
-    --topbar-shadow:       0 1px 4px rgba(0,0,0,0.08);
+    --topbar-bg:           linear-gradient(90deg, #0a0a0a 0%, #1c1c1c 62%, #e85d04 100%);
+    --topbar-border:       #e85d04;
+    --topbar-shadow:       0 2px 12px rgba(232,93,4,0.25), 0 1px 3px rgba(0,0,0,0.5);
+    --topbar-text:         #f0f0f0;
+    --topbar-muted:        #a0a0a0;
+    --topbar-orange:       #e85d04;
+    --topbar-orange-light: #ff7a2a;
+    --topbar-btn-border:   rgba(255,255,255,0.12);
+    --topbar-btn-hover-bg: rgba(232,93,4,0.18);
 
     /* Typography */
     --font-ltr: 'Inter', system-ui, sans-serif;
@@ -123,7 +129,7 @@ body.app-layout {
 .app-topbar {
     height: var(--topbar-height);
     background: var(--topbar-bg);
-    border-bottom: 1px solid var(--topbar-border);
+    border-bottom: 2px solid var(--topbar-border);
     box-shadow: var(--topbar-shadow);
     display: flex;
     align-items: center;
@@ -152,9 +158,9 @@ body.app-layout {
 /* Toggle button */
 .topbar-toggle {
     background: none;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--topbar-btn-border);
     border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
+    color: var(--topbar-muted);
     width: 36px;
     height: 36px;
     display: flex;
@@ -165,23 +171,24 @@ body.app-layout {
     flex-shrink: 0;
 }
 .topbar-toggle:hover {
-    background-color: var(--color-primary-bg);
-    color: var(--color-primary);
-    border-color: var(--color-primary-light);
+    background-color: var(--topbar-btn-hover-bg);
+    color: var(--topbar-orange-light);
+    border-color: var(--topbar-orange);
 }
 
 /* Brand in topbar (mobile-visible, desktop-hidden on large screens) */
 .topbar-brand {
     font-weight: 600;
     font-size: 0.92rem;
-    color: var(--color-text);
+    color: var(--topbar-text);
     display: flex;
     align-items: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
 }
-.topbar-brand i { color: var(--color-primary); }
+.topbar-brand i { color: var(--topbar-orange); }
 @media (min-width: 768px) {
     .topbar-brand { display: none; }
     .topbar-toggle { display: none; }
@@ -190,9 +197,9 @@ body.app-layout {
 /* Generic topbar button */
 .topbar-btn {
     background: none;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--topbar-btn-border);
     border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
+    color: var(--topbar-muted);
     padding: 5px 12px;
     font-size: 0.82rem;
     font-weight: 500;
@@ -203,9 +210,9 @@ body.app-layout {
     transition: var(--transition);
 }
 .topbar-btn:hover {
-    background-color: var(--color-primary-bg);
-    color: var(--color-primary);
-    border-color: var(--color-primary-light);
+    background-color: var(--topbar-btn-hover-bg);
+    color: var(--topbar-orange-light);
+    border-color: var(--topbar-orange);
 }
 
 .topbar-lang-form { display: flex; align-items: center; }
@@ -214,7 +221,7 @@ body.app-layout {
 .topbar-user { position: relative; }
 .topbar-user-btn {
     background: none;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--topbar-btn-border);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -222,14 +229,14 @@ body.app-layout {
     padding: 5px 12px 5px 6px;
     cursor: pointer;
     transition: var(--transition);
-    color: var(--color-text);
+    color: var(--topbar-text);
     font-size: 0.85rem;
     font-weight: 500;
 }
 .topbar-user-btn:hover, .topbar-user-btn.show {
-    background-color: var(--color-primary-bg);
-    border-color: var(--color-primary-light);
-    color: var(--color-primary);
+    background-color: var(--topbar-btn-hover-bg);
+    border-color: var(--topbar-orange);
+    color: var(--topbar-orange-light);
 }
 .topbar-user-btn::after { display: none; } /* remove BS caret */
 
@@ -237,25 +244,28 @@ body.app-layout {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: var(--color-primary);
+    background: var(--topbar-orange);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.78rem;
     flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(232,93,4,0.3);
 }
 .topbar-username {
     max-width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: var(--topbar-text);
 }
 .topbar-role-badge {
     font-size: 0.7rem;
     font-weight: 600;
-    background: var(--color-primary-bg);
-    color: var(--color-primary);
+    background: rgba(232,93,4,0.18);
+    color: var(--topbar-orange-light);
+    border: 1px solid rgba(232,93,4,0.35);
     padding: 2px 8px;
     border-radius: 99px;
     white-space: nowrap;
@@ -828,5 +838,51 @@ textarea.form-control { min-height: 100px; }
 [dir="rtl"] .modal-header .btn-close {
     margin-right: auto;
     margin-left: 0;
+}
+
+/* ----------------------------------------------------------------
+   16. App Footer
+   ---------------------------------------------------------------- */
+.app-footer {
+    background: linear-gradient(270deg, #0a0a0a 0%, #1c1c1c 62%, #e85d04 100%);
+    border-top: 2px solid #e85d04;
+    box-shadow: 0 -2px 12px rgba(232,93,4,0.2), 0 -1px 3px rgba(0,0,0,0.4);
+    color: #a0a0a0;
+    font-size: 0.78rem;
+    padding: 10px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.app-footer .footer-copy {
+    color: #c8c8c8;
+    font-weight: 500;
+}
+.app-footer .footer-credit {
+    color: #a0a0a0;
+}
+.app-footer .footer-credit i {
+    color: #e85d04;
+}
+.app-footer .footer-version {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(232,93,4,0.15);
+    border: 1px solid rgba(232,93,4,0.35);
+    color: #ff7a2a;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+.app-footer .footer-version i {
+    font-size: 0.72rem;
+}
+[dir="rtl"] .app-footer {
+    background: linear-gradient(90deg, #0a0a0a 0%, #1c1c1c 62%, #e85d04 100%);
 }
 

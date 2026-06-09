@@ -1,7 +1,8 @@
 Django==5.2.1
 mysqlclient==2.2.7
 python-decouple==3.8
-WeasyPrint==62.3
+arabic-reshaper
+python-bidi==0.4.2
 django-crispy-forms==2.3
 crispy-bootstrap5==2024.10
 django-axes==7.0.1

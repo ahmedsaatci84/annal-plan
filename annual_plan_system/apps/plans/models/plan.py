@@ -97,3 +97,31 @@ class AnnualPlan(models.Model):
             plan=self, from_status=old, to_status=self.STATUS_REJECTED,
             performed_by=user, comment=comment
         )
+
+    def start_review(self, user):
+        from apps.plans.models.workflow import PlanWorkflowLog
+        old = self.status
+        self.status = self.STATUS_UNDER_REVIEW
+        self.save(update_fields=['status'])
+        PlanWorkflowLog.objects.create(
+            plan=self, from_status=old, to_status=self.STATUS_UNDER_REVIEW, performed_by=user
+        )
+
+    def archive(self, user, comment=''):
+        from apps.plans.models.workflow import PlanWorkflowLog
+        old = self.status
+        self.status = self.STATUS_ARCHIVED
+        self.save(update_fields=['status'])
+        PlanWorkflowLog.objects.create(
+            plan=self, from_status=old, to_status=self.STATUS_ARCHIVED,
+            performed_by=user, comment=comment
+        )
+
+    def reopen(self, user):
+        from apps.plans.models.workflow import PlanWorkflowLog
+        old = self.status
+        self.status = self.STATUS_DRAFT
+        self.save(update_fields=['status'])
+        PlanWorkflowLog.objects.create(
+            plan=self, from_status=old, to_status=self.STATUS_DRAFT, performed_by=user
+        )

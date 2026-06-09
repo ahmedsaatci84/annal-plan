@@ -125,3 +125,434 @@ Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 3656
 Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Internal Server Error: /ar/auth/users/create/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.IntegrityError: (1062, "Duplicate entry '2' for key 'accounts_userprofile.user_id'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\apps\core\mixins.py", line 21, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\accounts\views.py", line 80, in post
+    profile.save()
+    ~~~~~~~~~~~~^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\query.py", line 1864, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1882, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: (1062, "Duplicate entry '2' for key 'accounts_userprofile.user_id'")
+"POST /ar/auth/users/create/ HTTP/1.1" 500 210139
+Internal Server Error: /ar/plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 11, in export_plan_pdf
+    import weasyprint
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\__init__.py", line 419, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\__init__.py", line 28, in <module>
+    from .computed_values import COMPUTER_FUNCTIONS
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 431, in <module>
+    gobject = _dlopen(
+        ffi, 'gobject-2.0-0', 'gobject-2.0', 'libgobject-2.0-0',
+        'libgobject-2.0.so.0', 'libgobject-2.0.dylib', 'libgobject-2.0-0.dll')
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 420, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+           ~~~~~~~~~~^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 834, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 829, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'gobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'gobject-2.0-0'
+"GET /ar/plans/1/export/pdf/ HTTP/1.1" 500 169454
+Internal Server Error: /ar/plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 11, in export_plan_pdf
+    import weasyprint
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\__init__.py", line 419, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\__init__.py", line 28, in <module>
+    from .computed_values import COMPUTER_FUNCTIONS
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 431, in <module>
+    gobject = _dlopen(
+        ffi, 'gobject-2.0-0', 'gobject-2.0', 'libgobject-2.0-0',
+        'libgobject-2.0.so.0', 'libgobject-2.0.dylib', 'libgobject-2.0-0.dll')
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 420, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+           ~~~~~~~~~~^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 834, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 829, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'gobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'gobject-2.0-0'
+"GET /ar/plans/1/export/pdf/ HTTP/1.1" 500 168032
+Internal Server Error: /ar/plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 11, in export_plan_pdf
+    import weasyprint
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\__init__.py", line 419, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\__init__.py", line 28, in <module>
+    from .computed_values import COMPUTER_FUNCTIONS
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 431, in <module>
+    gobject = _dlopen(
+        ffi, 'gobject-2.0-0', 'gobject-2.0', 'libgobject-2.0-0',
+        'libgobject-2.0.so.0', 'libgobject-2.0.dylib', 'libgobject-2.0-0.dll')
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 420, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+           ~~~~~~~~~~^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 834, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 829, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'gobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'gobject-2.0-0'
+"GET /ar/plans/1/export/pdf/ HTTP/1.1" 500 168032
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Internal Server Error: /plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 11, in export_plan_pdf
+    import weasyprint
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\__init__.py", line 419, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\__init__.py", line 28, in <module>
+    from .computed_values import COMPUTER_FUNCTIONS
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\css\computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 431, in <module>
+    gobject = _dlopen(
+        ffi, 'gobject-2.0-0', 'gobject-2.0', 'libgobject-2.0-0',
+        'libgobject-2.0.so.0', 'libgobject-2.0.dylib', 'libgobject-2.0-0.dll')
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\weasyprint\text\ffi.py", line 420, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+           ~~~~~~~~~~^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 834, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\cffi\api.py", line 829, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'gobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'gobject-2.0-0'
+"GET /plans/1/export/pdf/ HTTP/1.1" 500 169155
+Internal Server Error: /plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 101, in plan_export_pdf
+    from apps.plans.services.pdf_service import export_plan_pdf
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 4, in <module>
+    from bidi.algorithm import get_display
+ModuleNotFoundError: No module named 'bidi.algorithm'
+"GET /plans/1/export/pdf/ HTTP/1.1" 500 96821
+Internal Server Error: /plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 68, in export_plan_pdf
+    from xhtml2pdf import pisa
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\pisa.py", line 26, in <module>
+    from xhtml2pdf.document import pisaDocument
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\document.py", line 25, in <module>
+    from xhtml2pdf.context import pisaContext
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\context.py", line 39, in <module>
+    from xhtml2pdf import default, parser
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\parser.py", line 44, in <module>
+    from xhtml2pdf.tables import (  # noqa: F401
+    ...<5 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tables.py", line 21, in <module>
+    from xhtml2pdf.tags import pisaTag
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tags.py", line 35, in <module>
+    from xhtml2pdf.charts import (
+    ...<6 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\charts.py", line 7, in <module>
+    from xhtml2pdf.util import getColor
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\util.py", line 25, in <module>
+    from bidi.algorithm import get_display
+ModuleNotFoundError: No module named 'bidi.algorithm'
+"GET /plans/1/export/pdf/ HTTP/1.1" 500 226299
+Internal Server Error: /plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 68, in export_plan_pdf
+    from xhtml2pdf import pisa
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\pisa.py", line 26, in <module>
+    from xhtml2pdf.document import pisaDocument
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\document.py", line 25, in <module>
+    from xhtml2pdf.context import pisaContext
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\context.py", line 39, in <module>
+    from xhtml2pdf import default, parser
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\parser.py", line 44, in <module>
+    from xhtml2pdf.tables import (  # noqa: F401
+    ...<5 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tables.py", line 21, in <module>
+    from xhtml2pdf.tags import pisaTag
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tags.py", line 35, in <module>
+    from xhtml2pdf.charts import (
+    ...<6 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\charts.py", line 7, in <module>
+    from xhtml2pdf.util import getColor
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\util.py", line 25, in <module>
+    from bidi.algorithm import get_display
+ModuleNotFoundError: No module named 'bidi.algorithm'
+"GET /plans/1/export/pdf/ HTTP/1.1" 500 226162
+Internal Server Error: /plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 68, in export_plan_pdf
+    from xhtml2pdf import pisa
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\pisa.py", line 26, in <module>
+    from xhtml2pdf.document import pisaDocument
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\document.py", line 25, in <module>
+    from xhtml2pdf.context import pisaContext
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\context.py", line 39, in <module>
+    from xhtml2pdf import default, parser
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\parser.py", line 44, in <module>
+    from xhtml2pdf.tables import (  # noqa: F401
+    ...<5 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tables.py", line 21, in <module>
+    from xhtml2pdf.tags import pisaTag
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tags.py", line 35, in <module>
+    from xhtml2pdf.charts import (
+    ...<6 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\charts.py", line 7, in <module>
+    from xhtml2pdf.util import getColor
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\util.py", line 25, in <module>
+    from bidi.algorithm import get_display
+ModuleNotFoundError: No module named 'bidi.algorithm'
+"GET /plans/1/export/pdf/ HTTP/1.1" 500 226162
+Internal Server Error: /plans/1/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 68, in export_plan_pdf
+    from xhtml2pdf import pisa
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\pisa.py", line 26, in <module>
+    from xhtml2pdf.document import pisaDocument
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\document.py", line 25, in <module>
+    from xhtml2pdf.context import pisaContext
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\context.py", line 39, in <module>
+    from xhtml2pdf import default, parser
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\parser.py", line 44, in <module>
+    from xhtml2pdf.tables import (  # noqa: F401
+    ...<5 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tables.py", line 21, in <module>
+    from xhtml2pdf.tags import pisaTag
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\tags.py", line 35, in <module>
+    from xhtml2pdf.charts import (
+    ...<6 lines>...
+    )
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\charts.py", line 7, in <module>
+    from xhtml2pdf.util import getColor
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\xhtml2pdf\util.py", line 25, in <module>
+    from bidi.algorithm import get_display
+ModuleNotFoundError: No module named 'bidi.algorithm'
+"GET /plans/1/export/pdf/ HTTP/1.1" 500 226162
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Internal Server Error: /ar/plans/2/goals/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\goal_views.py", line 18, in goal_list
+    return render(request, 'plans/sections/goals.html', {
+        'plan': plan,
+        'goals': goals,
+        'can_edit': request.user.profile.can_edit_plan(plan),
+    })
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: plans/sections/goals.html
+"GET /ar/plans/2/goals/ HTTP/1.1" 500 103578
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656

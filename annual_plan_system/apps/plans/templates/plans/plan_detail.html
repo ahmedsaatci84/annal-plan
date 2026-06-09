@@ -15,9 +15,16 @@
             <i class="fas fa-edit me-1"></i>{% trans "Edit Header" %}
         </a>
         {% endif %}
-        <a href="{% url 'plans:export_pdf' plan.pk %}" class="btn btn-outline-dark btn-sm">
+        <a href="{% url 'plans:export_pdf' plan.pk %}" class="btn btn-outline-dark btn-sm" target="_blank" rel="noopener noreferrer">
             <i class="fas fa-file-pdf me-1"></i>{% trans "Export PDF" %}
         </a>
+        {% if change_status_choices %}
+        <button type="button" class="btn btn-outline-dark btn-sm"
+                data-bs-toggle="modal" data-bs-target="#changeStatusModal"
+                data-current-status="{{ plan.status }}">
+            <i class="fas fa-exchange-alt me-1"></i>{% trans "Change Status" %}
+        </button>
+        {% endif %}
         {% if can_edit and plan.status == 'DRAFT' %}
         <form method="post" action="{% url 'plans:submit' plan.pk %}" class="d-inline">
             {% csrf_token %}
@@ -27,12 +34,35 @@
             </button>
         </form>
         {% endif %}
-        {% if can_review and plan.status in 'SUBMITTED,UNDER_REVIEW' %}
+        {% if can_review and plan.status == 'SUBMITTED' %}
+        <form method="post" action="{% url 'plans:start_review' plan.pk %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-info btn-sm"
+                    onclick="return confirm('{% trans "Start reviewing this plan?" %}')">
+                <i class="fas fa-search me-1"></i>{% trans "Start Review" %}
+            </button>
+        </form>
+        {% endif %}
+        {% if can_review and plan.status == 'SUBMITTED' or can_review and plan.status == 'UNDER_REVIEW' %}
         <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#approveModal">
             <i class="fas fa-check me-1"></i>{% trans "Approve" %}
         </button>
         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal">
             <i class="fas fa-times me-1"></i>{% trans "Reject" %}
+        </button>
+        {% endif %}
+        {% if can_edit and plan.status == 'REJECTED' %}
+        <form method="post" action="{% url 'plans:reopen' plan.pk %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning btn-sm"
+                    onclick="return confirm('{% trans "Reopen this plan for editing?" %}')">
+                <i class="fas fa-redo me-1"></i>{% trans "Reopen to Draft" %}
+            </button>
+        </form>
+        {% endif %}
+        {% if is_admin and plan.status == 'APPROVED' %}
+        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#archiveModal">
+            <i class="fas fa-archive me-1"></i>{% trans "Archive" %}
         </button>
         {% endif %}
     </div>
@@ -231,8 +261,185 @@
     </div>
 </div>
 {% endif %}
+
+<!-- Archive Modal -->
+{% if is_admin %}
+<div class="modal fade" id="archiveModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary text-white">
+                <h5 class="modal-title">{% trans "Archive Plan" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" action="{% url 'plans:archive' plan.pk %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p class="text-muted">{% trans "This will archive the approved plan. It will no longer be editable." %}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary">{% trans "Archive" %}</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Change Status Modal -->
+{% if change_status_choices %}
+<div class="modal fade" id="changeStatusModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">{% trans "Change Plan Status" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" action="{% url 'plans:change_status' plan.pk %}" id="changeStatusForm">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'plans:detail' plan.pk %}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">{% trans "Status" %}</label>
+                        <select name="status" class="form-select" id="changeStatusSelect">
+                            {% for val, label in change_status_choices %}
+                            <option value="{{ val }}" data-label="{{ label }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="badge bg-secondary" id="changeStatusRiskBadge">{% trans "Normal" %}</span>
+                        <small class="text-muted" id="changeStatusRiskText">{% trans "No special risk detected." %}</small>
+                    </div>
+                    <div class="alert alert-light small" id="changeStatusHint" role="status"></div>
+                    <div>
+                        <label class="form-label">{% trans "Comment" %}</label>
+                        <textarea name="comment" class="form-control" id="changeStatusComment" rows="3"></textarea>
+                        <small class="text-muted" id="changeStatusCommentNote">{% trans "Comment is required when rejecting or rolling back an approved plan." %}</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark">{% trans "Save" %}</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/plan-form.js' %}"></script>
+<script>
+var changeStatusModal = document.getElementById('changeStatusModal');
+if (changeStatusModal) {
+    var detailCurrentStatus = '{{ plan.status }}';
+    var hintEl = document.getElementById('changeStatusHint');
+    var commentInput = document.getElementById('changeStatusComment');
+    var commentNote = document.getElementById('changeStatusCommentNote');
+    var riskBadge = document.getElementById('changeStatusRiskBadge');
+    var riskText = document.getElementById('changeStatusRiskText');
+    var statusHints = {
+        DRAFT: '{% trans "Move to Draft to unlock full editing." %}',
+        SUBMITTED: '{% trans "Submitted plans are waiting to be reviewed." %}',
+        UNDER_REVIEW: '{% trans "Under Review indicates active reviewer processing." %}',
+        APPROVED: '{% trans "Approved is a locked and finalized plan state." %}',
+        REJECTED: '{% trans "Rejected requires a clear reason for correction." %}',
+        ARCHIVED: '{% trans "Archived keeps the plan for record and closes workflow." %}'
+    };
+
+    function requiresComment(currentStatus, targetStatus) {
+        return targetStatus === 'REJECTED' || (
+            currentStatus === 'APPROVED' &&
+            targetStatus !== 'APPROVED' &&
+            targetStatus !== 'ARCHIVED'
+        );
+    }
+
+    function resolveRisk(currentStatus, targetStatus) {
+        if (currentStatus === targetStatus) {
+            return {
+                level: 'info',
+                label: '{% trans "No Change" %}',
+                text: '{% trans "Selected status is the same as current status." %}'
+            };
+        }
+        if (currentStatus === 'APPROVED' && targetStatus !== 'APPROVED' && targetStatus !== 'ARCHIVED') {
+            return {
+                level: 'danger',
+                label: '{% trans "Critical" %}',
+                text: '{% trans "Rollback from approved affects governance and needs a clear reason." %}'
+            };
+        }
+        if (targetStatus === 'REJECTED') {
+            return {
+                level: 'warning',
+                label: '{% trans "Caution" %}',
+                text: '{% trans "Rejection returns the plan for correction and requires reason." %}'
+            };
+        }
+        if (targetStatus === 'ARCHIVED') {
+            return {
+                level: 'secondary',
+                label: '{% trans "Record" %}',
+                text: '{% trans "Archive keeps the plan closed for records." %}'
+            };
+        }
+        return {
+            level: 'success',
+            label: '{% trans "Normal" %}',
+            text: '{% trans "Standard workflow transition." %}'
+        };
+    }
+
+    function updateChangeStatusHint() {
+        var statusSelect = document.getElementById('changeStatusSelect');
+        if (!statusSelect) return;
+        var targetStatus = statusSelect.value;
+        var risk = resolveRisk(detailCurrentStatus, targetStatus);
+        var hint = statusHints[targetStatus] || '{% trans "Select a target status to continue." %}';
+        if (requiresComment(detailCurrentStatus, targetStatus)) {
+            hint += ' {% trans "Comment is mandatory for this transition." %}';
+        }
+        if (hintEl) {
+            hintEl.textContent = hint;
+            hintEl.className = 'alert small alert-' + (risk.level === 'danger' ? 'danger' : risk.level === 'warning' ? 'warning' : risk.level === 'info' ? 'info' : risk.level === 'secondary' ? 'secondary' : 'success');
+        }
+        if (riskBadge) {
+            riskBadge.textContent = risk.label;
+            riskBadge.className = 'badge bg-' + (risk.level === 'danger' ? 'danger' : risk.level === 'warning' ? 'warning text-dark' : risk.level === 'info' ? 'info text-dark' : risk.level === 'secondary' ? 'secondary' : 'success');
+        }
+        if (riskText) {
+            riskText.textContent = risk.text;
+        }
+        if (commentInput) commentInput.required = requiresComment(detailCurrentStatus, targetStatus);
+        if (commentNote) {
+            commentNote.textContent = requiresComment(detailCurrentStatus, targetStatus)
+                ? '{% trans "Comment is required for this transition." %}'
+                : '{% trans "Comment is optional for this transition." %}';
+        }
+    }
+
+    changeStatusModal.addEventListener('show.bs.modal', function(event) {
+        var btn = event.relatedTarget;
+        var currentStatus = btn.getAttribute('data-current-status');
+        var statusSelect = document.getElementById('changeStatusSelect');
+        if (statusSelect && currentStatus && statusSelect.querySelector('option[value="' + currentStatus + '"]')) {
+            statusSelect.value = currentStatus;
+        }
+        if (commentInput) {
+            commentInput.value = '';
+        }
+        updateChangeStatusHint();
+    });
+
+    var detailStatusSelect = document.getElementById('changeStatusSelect');
+    if (detailStatusSelect) {
+        detailStatusSelect.addEventListener('change', updateChangeStatusHint);
+        updateChangeStatusHint();
+    }
+}
+</script>
 {% endblock %}

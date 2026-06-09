@@ -60,7 +60,7 @@ class UserProfile(models.Model):
         """Check if this user can edit a given plan."""
         if self.role == self.ROLE_ADMIN:
             return True
-        if plan.status not in ('DRAFT', 'REJECTED'):
+        if plan.status not in ('DRAFT', 'REJECTED', 'APPROVED'):
             return False
         if self.role in (self.ROLE_MANAGER, self.ROLE_ORGANIZER):
             return plan.formation_id == self.formation_id

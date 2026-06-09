@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+APP_VERSION = '1.0.0'
+
 SECRET_KEY = config('SECRET_KEY')
 
 INSTALLED_APPS = [
@@ -56,6 +58,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.core.context_processors.app_info',
             ],
         },
     },

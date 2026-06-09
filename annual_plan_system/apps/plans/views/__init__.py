@@ -1,6 +1,7 @@
 from .plan_views import (
     plan_list, plan_create, plan_detail, plan_edit,
-    plan_submit, plan_approve, plan_reject,
+    plan_delete, plan_change_status, plan_submit, plan_approve, plan_reject,
+    plan_start_review, plan_reopen, plan_archive,
 )
 from .goal_views import goal_list, goal_create, goal_edit, goal_delete
 from .activity_views import (
@@ -14,7 +15,8 @@ from .misc_views import (
 
 __all__ = [
     'plan_list', 'plan_create', 'plan_detail', 'plan_edit',
-    'plan_submit', 'plan_approve', 'plan_reject',
+    'plan_delete', 'plan_change_status', 'plan_submit', 'plan_approve', 'plan_reject',
+    'plan_start_review', 'plan_reopen', 'plan_archive',
     'goal_list', 'goal_create', 'goal_edit', 'goal_delete',
     'activity_create', 'activity_edit', 'activity_update_progress', 'activity_delete',
     'risk_create', 'risk_edit', 'risk_delete',

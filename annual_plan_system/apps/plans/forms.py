@@ -164,3 +164,35 @@ class WorkflowCommentForm(forms.Form):
         required=False,
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
     )
+
+
+class PlanStatusUpdateForm(forms.Form):
+    status = forms.ChoiceField(
+        label='الحالة',
+        choices=AnnualPlan.STATUS_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    comment = forms.CharField(
+        label='التعليق',
+        required=False,
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
+    )
+
+    def __init__(self, *args, current_status=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_status = current_status
+
+    def clean(self):
+        cleaned_data = super().clean()
+        status = cleaned_data.get('status')
+        comment = cleaned_data.get('comment', '').strip()
+        if status == AnnualPlan.STATUS_REJECTED and not comment:
+            self.add_error('comment', 'سبب الرفض مطلوب عند تحويل الحالة إلى مرفوضة.')
+        if (
+            self.current_status == AnnualPlan.STATUS_APPROVED
+            and status
+            and status != AnnualPlan.STATUS_APPROVED
+            and not comment
+        ):
+            self.add_error('comment', 'التعليق مطلوب عند تحويل الخطة من معتمدة إلى حالة أخرى.')
+        return cleaned_data

@@ -8,9 +8,14 @@ urlpatterns = [
     path('create/', views.plan_create, name='create'),
     path('<int:pk>/', views.plan_detail, name='detail'),
     path('<int:pk>/edit/', views.plan_edit, name='edit'),
+     path('<int:pk>/delete/', views.plan_delete, name='delete'),
+     path('<int:pk>/change-status/', views.plan_change_status, name='change_status'),
     path('<int:pk>/submit/', views.plan_submit, name='submit'),
+    path('<int:pk>/start-review/', views.plan_start_review, name='start_review'),
     path('<int:pk>/approve/', views.plan_approve, name='approve'),
     path('<int:pk>/reject/', views.plan_reject, name='reject'),
+    path('<int:pk>/reopen/', views.plan_reopen, name='reopen'),
+    path('<int:pk>/archive/', views.plan_archive, name='archive'),
 
     # SWOT
     path('<int:plan_pk>/swot/edit/', views.swot_edit, name='swot_edit'),

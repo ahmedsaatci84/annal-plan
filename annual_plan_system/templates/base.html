@@ -67,6 +67,20 @@
 
 {% if user.is_authenticated %}
         </main>
+
+        <!-- ===== Footer ===== -->
+        <footer class="app-footer">
+            <span class="footer-copy">
+                &copy; {{ CURRENT_YEAR }} {% trans "Annual Plan Management System" %}. {% trans "All rights reserved." %}
+            </span>
+            <span class="footer-credit">
+                <i class="fas fa-code me-1"></i>{% trans "Powered by" %} {% trans "IT Department" %} &mdash; Ahmed Abdulameer Ahmed
+            </span>
+            <span class="footer-version">
+                <i class="fas fa-tag"></i>v{{ APP_VERSION }}
+            </span>
+        </footer>
+
     </div><!-- /.app-content-wrapper -->
 </div><!-- /.app-shell -->
 
