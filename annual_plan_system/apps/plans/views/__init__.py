@@ -9,8 +9,8 @@ from .activity_views import (
 )
 from .risk_views import risk_create, risk_edit, risk_delete
 from .misc_views import (
-    swot_edit, recommendations_edit, gantt_view, gantt_data_api,
-    summary_view, summary_api, plan_export_pdf,
+    swot_edit, recommendations_edit, gantt_view, gantt_print_view, gantt_data_api,
+    summary_view, summary_api, plan_export_pdf, workflow_log_export_pdf,
 )
 
 __all__ = [
@@ -20,6 +20,6 @@ __all__ = [
     'goal_list', 'goal_create', 'goal_edit', 'goal_delete',
     'activity_create', 'activity_edit', 'activity_update_progress', 'activity_delete',
     'risk_create', 'risk_edit', 'risk_delete',
-    'swot_edit', 'recommendations_edit', 'gantt_view', 'gantt_data_api',
-    'summary_view', 'summary_api', 'plan_export_pdf',
+    'swot_edit', 'recommendations_edit', 'gantt_view', 'gantt_print_view', 'gantt_data_api',
+    'summary_view', 'summary_api', 'plan_export_pdf', 'workflow_log_export_pdf',
 ]

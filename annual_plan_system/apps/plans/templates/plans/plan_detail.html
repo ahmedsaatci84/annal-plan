@@ -158,7 +158,7 @@
 
     <!-- Gantt -->
     <div class="tab-pane fade" id="tab-gantt">
-        {% include "plans/sections/gantt_inline.html" with plan=plan goals=goals %}
+        {% include "plans/sections/gantt_inline.html" with plan=plan goals=goals show_print_button=True %}
     </div>
 
     <!-- Risks -->
@@ -191,7 +191,12 @@
 
     <!-- Workflow Log -->
     <div class="tab-pane fade" id="tab-log">
-        <h6 class="mb-3">{% trans "Workflow Log" %}</h6>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="mb-0">{% trans "Workflow Log" %}</h6>
+            <a href="{% url 'plans:workflow_log_export_pdf' plan.pk %}" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-print me-1"></i>{% trans "Print PDF" %}
+            </a>
+        </div>
         <div class="table-responsive">
             <table class="table table-sm table-bordered">
                 <thead>
@@ -441,5 +446,6 @@ if (changeStatusModal) {
         updateChangeStatusHint();
     }
 }
+
 </script>
 {% endblock %}

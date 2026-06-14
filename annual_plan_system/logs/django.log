@@ -556,3 +556,41 @@ django.template.exceptions.TemplateDoesNotExist: plans/sections/goals.html
 "GET /ar/plans/2/goals/ HTTP/1.1" 500 103578
 Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Internal Server Error: /plans/2/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 148, in export_plan_pdf
+    [_points_para(getattr(swot, 'strengths', ''), _shape('‰ﬁ«ÿ «·ﬁÊ…'),  styles['small'])],
+     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _points_para() takes 2 positional arguments but 3 were given
+"GET /plans/2/export/pdf/ HTTP/1.1" 500 96796
+Internal Server Error: /plans/2/export/pdf/
+Traceback (most recent call last):
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\annal_plan\annual_plan_system\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\annal_plan\annual_plan_system\apps\plans\views\misc_views.py", line 102, in plan_export_pdf
+    return export_plan_pdf(request, plan)
+  File "D:\annal_plan\annual_plan_system\apps\plans\services\pdf_service.py", line 148, in export_plan_pdf
+    [_points_para(getattr(swot, 'strengths', ''), _shape('‰ﬁ«ÿ «·ﬁÊ…'),  styles['small'])],
+     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _points_para() takes 2 positional arguments but 3 were given
+"GET /plans/2/export/pdf/ HTTP/1.1" 500 96796
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3656
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3892
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4003

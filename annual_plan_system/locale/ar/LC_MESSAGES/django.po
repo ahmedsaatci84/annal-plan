@@ -860,7 +860,7 @@ msgstr "تسجيل الخروج"
 
 #: .\templates\sidebar.html:9
 msgid "APS"
-msgstr "ن.خ.س"
+msgstr "الخطةالسنوية"
 
 #: .\templates\sidebar.html:31
 msgid "Administration"

@@ -67,6 +67,16 @@ def gantt_view(request, plan_pk):
 
 
 @login_required
+def gantt_print_view(request, plan_pk):
+    plan = get_object_or_404(AnnualPlan, pk=plan_pk)
+    _check_plan_access(request.user, plan)
+    goals = plan.goals.prefetch_related('activities').order_by('sequence')
+    return render(request, 'plans/sections/gantt_print.html', {
+        'plan': plan, 'goals': goals
+    })
+
+
+@login_required
 def gantt_data_api(request, plan_pk):
     """JSON API: returns gantt data for Chart.js."""
     plan = get_object_or_404(AnnualPlan, pk=plan_pk)
@@ -100,3 +110,11 @@ def plan_export_pdf(request, plan_pk):
     _check_plan_access(request.user, plan)
     from apps.plans.services.pdf_service import export_plan_pdf
     return export_plan_pdf(request, plan)
+
+
+@login_required
+def workflow_log_export_pdf(request, plan_pk):
+    plan = get_object_or_404(AnnualPlan, pk=plan_pk)
+    _check_plan_access(request.user, plan)
+    from apps.plans.services.pdf_service import export_workflow_log_pdf
+    return export_workflow_log_pdf(request, plan)

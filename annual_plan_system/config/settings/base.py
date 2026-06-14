@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'apps.formations',
     'apps.plans',
     'apps.dashboard',
+    'apps.ai_assistant',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,12 @@ AUTHENTICATION_BACKENDS = [
 
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1  # hours
+
+# AI Assistant (local free model integration, e.g. Ollama + Qwen2.5-7B-Instruct)
+AI_ASSISTANT_ENABLED = config('AI_ASSISTANT_ENABLED', default=False, cast=bool)
+AI_ASSISTANT_ENDPOINT = config('AI_ASSISTANT_ENDPOINT', default='http://localhost:11434/api/chat')
+AI_ASSISTANT_MODEL = config('AI_ASSISTANT_MODEL', default='qwen2.5:7b-instruct')
+AI_ASSISTANT_TIMEOUT = config('AI_ASSISTANT_TIMEOUT', default=60, cast=int)
 
 LOGGING = {
     'version': 1,

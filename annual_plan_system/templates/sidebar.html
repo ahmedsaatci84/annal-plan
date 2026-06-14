@@ -26,6 +26,13 @@
                         <span class="sidebar-label">{% trans "Annual Plans" %}</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-link {% if request.resolver_match.namespace == 'ai_assistant' %}active{% endif %}"
+                       href="{% url 'ai_assistant:home' %}">
+                        <i class="fas fa-robot sidebar-icon"></i>
+                        <span class="sidebar-label">{% trans "AI Assistant" %}</span>
+                    </a>
+                </li>
 
                 {% if user.profile.role == 'ADMIN' %}
                 <li class="sidebar-section-title">{% trans "Administration" %}</li>

@@ -8,6 +8,9 @@
 
     <!-- Left Panel: Branding -->
     <div class="auth-hero">
+        <span class="auth-hero-glow auth-hero-glow-one" aria-hidden="true"></span>
+        <span class="auth-hero-glow auth-hero-glow-two" aria-hidden="true"></span>
+        <span class="auth-hero-grid" aria-hidden="true"></span>
         <div class="auth-hero-inner">
             <div class="auth-logo-mark">
                 <i class="fas fa-calendar-check"></i>
@@ -34,7 +37,8 @@
 
     <!-- Right Panel: Form -->
     <div class="auth-form-panel">
-        <div class="auth-form-box">
+        <div class="auth-form-box auth-frost-card">
+            <div class="auth-form-shine" aria-hidden="true"></div>
 
             <div class="auth-form-header">
                 <div class="auth-form-icon">
@@ -44,7 +48,7 @@
                 <p class="auth-form-desc">{% trans "Sign in to continue to your dashboard" %}</p>
             </div>
 
-            <form method="post" novalidate class="auth-form">
+            <form method="post" novalidate class="auth-form" data-auth-form>
                 {% csrf_token %}
 
                 <div class="auth-input-group">
@@ -86,6 +90,10 @@
                 <button type="submit" class="auth-submit-btn">
                     <i class="fas fa-arrow-right-to-bracket me-2"></i>{% trans "Sign In" %}
                 </button>
+
+                <p class="auth-trust-note">
+                    <i class="fas fa-shield-heart me-1"></i>{% trans "Secure session with activity tracking and role-based permissions." %}
+                </p>
             </form>
 
         </div>
@@ -106,6 +114,13 @@
             pwInput.type = 'password';
             icon.classList.replace('fa-eye-slash', 'fa-eye');
         }
+    });
+
+    document.querySelector('[data-auth-form]')?.addEventListener('submit', function () {
+        const submitBtn = this.querySelector('.auth-submit-btn');
+        if (!submitBtn) return;
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-loading');
     });
 </script>
 {% endblock %}

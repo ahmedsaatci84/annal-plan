@@ -102,6 +102,38 @@ https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer
 
 ---
 
+## المساعد الذكي المجاني (Qwen2.5-7B-Instruct)
+
+يمكن تشغيل نموذج مجاني محليًا عبر Ollama لاستخدامه في:
+
+- Chatbot داخل النظام
+- تحليل الخطط السنوية وإظهار نقاط القوة والفجوات والمخاطر
+- تصدير نتائج التحليل بصيغة JSON و PDF
+
+### الإعداد السريع
+
+```bash
+# 1) تثبيت Ollama (مرة واحدة)
+# https://ollama.com/download
+
+# 2) سحب النموذج
+ollama pull qwen2.5:7b-instruct
+
+# 3) تشغيل خدمة Ollama (عادة تعمل تلقائياً)
+ollama serve
+```
+
+بعدها افتح صفحة المساعد داخل النظام:
+
+`/ai/`
+
+بعد تنفيذ التحليل يمكنك التصدير عبر:
+
+- `/ai/export/json/`
+- `/ai/export/pdf/`
+
+---
+
 ## متغيرات البيئة (.env)
 
 ```
@@ -114,4 +146,10 @@ DB_PASSWORD=your-db-password
 DB_HOST=localhost
 DB_PORT=3306
 SESSION_COOKIE_AGE=1800
+
+# AI Assistant (Local / Free)
+AI_ASSISTANT_ENABLED=True
+AI_ASSISTANT_ENDPOINT=http://localhost:11434/api/chat
+AI_ASSISTANT_MODEL=qwen2.5:7b-instruct
+AI_ASSISTANT_TIMEOUT=60
 ```

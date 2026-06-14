@@ -1,0 +1,70 @@
+{% load static i18n rtl_extras %}
+{% get_current_language as LANG_CODE %}
+{% get_current_language_bidi as LANG_BIDI %}
+<!DOCTYPE html>
+<html lang="{{ LANG_CODE }}" {% if LANG_BIDI %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Gantt Timeline" %} - {{ plan }}</title>
+
+    {% if LANG_BIDI %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+    {% else %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/custom-rtl.css' %}">
+
+    <style>
+        body {
+            background: #fff;
+            padding: 16px;
+        }
+        .gantt-print-header {
+            margin-bottom: 10px;
+        }
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+            body {
+                padding: 0;
+            }
+            .gantt-print-header {
+                margin-bottom: 6px;
+            }
+            .gantt-table {
+                width: 100% !important;
+                font-size: 10px !important;
+                border-collapse: collapse !important;
+            }
+            .gantt-table th,
+            .gantt-table td {
+                border: 1px solid #333 !important;
+                padding: 2px 3px !important;
+                color: #000 !important;
+            }
+            .gantt-table thead th {
+                background: #f2f2f2 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="gantt-print-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">{% trans "Gantt Timeline" %}</h5>
+    <small class="text-muted">{{ plan }}</small>
+</div>
+
+{% include "plans/sections/gantt_inline.html" with plan=plan goals=goals show_print_button=False %}
+
+<script>
+window.addEventListener('load', function () {
+    setTimeout(function () {
+        window.print();
+    }, 200);
+});
+</script>
+</body>
+</html>

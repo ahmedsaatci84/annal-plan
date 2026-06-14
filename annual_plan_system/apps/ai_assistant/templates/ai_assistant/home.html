@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}المساعد الذكي{% endblock %}
+
+{% block extra_css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --ai-bg-a: #f7faf7;
+        --ai-bg-b: #eef4ff;
+        --ai-bg-c: #fffaf2;
+        --ai-brand: #0e7c86;
+        --ai-brand-2: #1f5fa8;
+        --ai-accent: #d57a2a;
+        --ai-ink: #1b2430;
+        --ai-muted: #5d6778;
+        --ai-card: rgba(255, 255, 255, 0.84);
+        --ai-border: rgba(14, 124, 134, 0.16);
+    }
+
+    .ai-page {
+        font-family: 'Changa', 'Cairo', sans-serif;
+        color: var(--ai-ink);
+        border-radius: 24px;
+        padding: 1.25rem;
+        background:
+            radial-gradient(1200px 360px at 10% -15%, rgba(14, 124, 134, 0.18), transparent 50%),
+            radial-gradient(900px 400px at 90% -10%, rgba(31, 95, 168, 0.16), transparent 50%),
+            linear-gradient(135deg, var(--ai-bg-a), var(--ai-bg-b) 52%, var(--ai-bg-c));
+        box-shadow: 0 20px 60px rgba(20, 31, 41, 0.08);
+        overflow: hidden;
+    }
+
+    .ai-hero {
+        background: linear-gradient(110deg, rgba(14, 124, 134, 0.14), rgba(31, 95, 168, 0.12), rgba(213, 122, 42, 0.1));
+        border: 1px solid var(--ai-border);
+        border-radius: 20px;
+        padding: 1.1rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        backdrop-filter: blur(8px);
+        animation: ai-fade-slide .45s ease;
+    }
+
+    .ai-hero-title {
+        margin: 0;
+        font-size: clamp(1.2rem, 2vw, 1.55rem);
+        font-weight: 700;
+        letter-spacing: .2px;
+    }
+
+    .ai-hero-subtitle {
+        margin: .3rem 0 0;
+        color: var(--ai-muted);
+        font-size: .95rem;
+    }
+
+    .ai-model-chip {
+        border-radius: 999px;
+        padding: .45rem .85rem;
+        border: 1px solid rgba(13, 70, 117, .2);
+        background: rgba(255, 255, 255, .78);
+        font-weight: 600;
+        font-size: .85rem;
+        color: #0a3d64;
+        white-space: nowrap;
+    }
+
+    .ai-status {
+        margin: 1rem 0 0;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        backdrop-filter: blur(6px);
+    }
+
+    .ai-status.alert-success {
+        background: rgba(41, 138, 93, 0.11);
+        border-color: rgba(41, 138, 93, 0.27);
+        color: #1f5a40;
+    }
+
+    .ai-status.alert-warning {
+        background: rgba(186, 106, 25, 0.12);
+        border-color: rgba(186, 106, 25, 0.3);
+        color: #75460f;
+    }
+
+    .ai-card {
+        border: 1px solid var(--ai-border);
+        border-radius: 18px;
+        background: var(--ai-card);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 14px 34px rgba(20, 31, 41, 0.08);
+        overflow: hidden;
+        animation: ai-fade-slide .55s ease;
+    }
+
+    .ai-card .card-header {
+        background: linear-gradient(92deg, rgba(14, 124, 134, 0.14), rgba(31, 95, 168, 0.1));
+        border-bottom: 1px solid rgba(14, 124, 134, 0.16);
+        font-weight: 700;
+        color: #113048;
+    }
+
+    .ai-page .form-control,
+    .ai-page .form-select {
+        border-radius: 12px;
+        border: 1px solid #c8d6e3;
+        min-height: 46px;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .ai-page textarea.form-control {
+        min-height: 170px;
+        resize: vertical;
+    }
+
+    .ai-page .form-control:focus,
+    .ai-page .form-select:focus {
+        box-shadow: 0 0 0 .2rem rgba(14, 124, 134, .18);
+        border-color: rgba(14, 124, 134, .45);
+    }
+
+    .ai-page .btn {
+        border-radius: 12px;
+        padding: .58rem 1rem;
+        font-weight: 600;
+    }
+
+    .ai-page .btn-primary {
+        background: linear-gradient(100deg, #0e7c86, #1f5fa8);
+        border: none;
+    }
+
+    .ai-page .btn-success {
+        background: linear-gradient(100deg, #157347, #159f62);
+        border: none;
+    }
+
+    .ai-output {
+        border: 1px solid #d3deea;
+        border-radius: 14px;
+        padding: .9rem;
+        white-space: pre-wrap;
+        background: rgba(255, 255, 255, 0.9);
+        line-height: 1.9;
+    }
+
+    .ai-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: .55rem;
+    }
+
+    @media (min-width: 576px) {
+        .ai-actions {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @keyframes ai-fade-slide {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="ai-page">
+    <div class="ai-hero">
+        <div>
+            <h4 class="ai-hero-title"><i class="fas fa-robot me-2"></i>مركز المساعد الذكي</h4>
+            <p class="ai-hero-subtitle">دردشة فورية وتحليل احترافي للخطط السنوية ضمن واجهة أوضح وأسرع.</p>
+        </div>
+        <span class="ai-model-chip"><i class="fas fa-microchip me-1"></i>{{ ai_status.model|default:"Model" }}</span>
+    </div>
+
+    <div class="alert ai-status {% if ai_status.ok %}alert-success{% else %}alert-warning{% endif %} d-flex align-items-center gap-2" role="alert">
+        <i class="fas {% if ai_status.ok %}fa-circle-check{% else %}fa-triangle-exclamation{% endif %}"></i>
+        <span>{{ ai_status.message }}</span>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-lg-6">
+            <div class="card ai-card h-100">
+                <div class="card-header">دردشة المساعد</div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'ai_assistant:chat' %}">
+                        {% csrf_token %}
+                        <label class="form-label fw-semibold">سؤالك</label>
+                        <textarea name="chat_prompt" rows="6" class="form-control" placeholder="اكتب سؤالك هنا...">{{ chat_prompt }}</textarea>
+                        <div class="mt-3 d-grid d-sm-flex gap-2">
+                            <button type="submit" class="btn btn-primary" {% if not ai_status.ok %}disabled{% endif %}>
+                                <i class="fas fa-paper-plane me-1"></i>إرسال
+                            </button>
+                            <a href="{% url 'ai_assistant:home' %}" class="btn btn-outline-secondary">مسح</a>
+                        </div>
+                    </form>
+
+                    {% if chat_response %}
+                    <hr>
+                    <h6 class="fw-bold">رد المساعد</h6>
+                    <div class="ai-output">{{ chat_response }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card ai-card h-100">
+                <div class="card-header">تحليل خطة سنوية</div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'ai_assistant:analyze_plan' %}">
+                        {% csrf_token %}
+                        <label class="form-label fw-semibold">اختر الخطة</label>
+                        <select name="plan_id" class="form-select" required>
+                            <option value="">-- اختر --</option>
+                            {% for plan in plans %}
+                            <option value="{{ plan.id }}" {% if selected_plan_id == plan.id|stringformat:"s" %}selected{% endif %}>
+                                {{ plan.formation.name_ar }} - {{ plan.plan_year }} ({{ plan.get_status_display }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="mt-3 d-grid d-sm-flex gap-2">
+                            <button type="submit" class="btn btn-success" {% if not ai_status.ok %}disabled{% endif %}>
+                                <i class="fas fa-chart-line me-1"></i>تحليل
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if analysis_response %}
+                    <hr>
+                    <h6 class="fw-bold">نتيجة التحليل</h6>
+                    <div class="ai-output">{{ analysis_response }}</div>
+                    <div class="mt-3 ai-actions">
+                        <a href="{% url 'ai_assistant:export_analysis_json' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-file-code me-1"></i>تصدير JSON
+                        </a>
+                        <a href="{% url 'ai_assistant:export_analysis_pdf' %}" class="btn btn-outline-danger">
+                            <i class="fas fa-file-pdf me-1"></i>تصدير PDF
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

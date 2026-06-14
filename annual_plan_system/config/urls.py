@@ -19,5 +19,6 @@ urlpatterns += i18n_patterns(
     path('formations/', include('apps.formations.urls', namespace='formations')),
     path('plans/', include('apps.plans.urls', namespace='plans')),
     path('dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
+    path('ai/', include('apps.ai_assistant.urls', namespace='ai_assistant')),
     prefix_default_language=False,
 )

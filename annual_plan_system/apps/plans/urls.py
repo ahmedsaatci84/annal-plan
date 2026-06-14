@@ -43,9 +43,11 @@ urlpatterns = [
 
     # Read-only sections
     path('<int:plan_pk>/gantt/', views.gantt_view, name='gantt'),
+     path('<int:plan_pk>/gantt/print/', views.gantt_print_view, name='gantt_print'),
     path('<int:plan_pk>/summary/', views.summary_view, name='summary'),
     path('<int:plan_pk>/recommendations/edit/', views.recommendations_edit, name='recommendations_edit'),
     path('<int:plan_pk>/export/pdf/', views.plan_export_pdf, name='export_pdf'),
+     path('<int:plan_pk>/workflow-log/export/pdf/', views.workflow_log_export_pdf, name='workflow_log_export_pdf'),
 
     # API
     path('api/<int:plan_pk>/gantt-data/', views.gantt_data_api, name='gantt_data_api'),
